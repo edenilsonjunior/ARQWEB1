@@ -15,7 +15,7 @@ public class UserDAO {
 
 	private static UserDAO instance;
 	private final String projectPath = System.getProperty("user.dir");
-    private final String fileCSV = projectPath + "/Área de trabalho/NewsWebsiteProject/data/usersData.csv";
+    private final String fileCSV = projectPath + "/Documentos/tsi3/NewsWebsiteProject/data/usersData.csv";
     private Long counter = 0L;
 
     private UserDAO() {}
