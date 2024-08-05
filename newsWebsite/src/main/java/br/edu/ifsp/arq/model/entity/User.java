@@ -19,6 +19,12 @@ public class User implements Serializable {
 		this.email = email;
 		this.password = password;
 	}
+	
+	public User(String username, String email, String password) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
 
 	public Long getId() {
 		return id;
@@ -52,5 +58,8 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
-
+	@Override
+	public String toString() {
+	    return id + ";" + username + ";" + email + ";" + password;
+	}
 }

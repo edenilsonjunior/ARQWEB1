@@ -4,14 +4,12 @@ public class Commentary {
 
 	private Long id;
 	private User user;
-	private String title;
 	private String text;
 	
-	public Commentary(Long id, User user, String title, String text) {
+	public Commentary(Long id, User user, String text) {
 		super();
 		this.id = id;
 		this.user = user;
-		this.title = title;
 		this.text = text;
 	}
 
@@ -29,14 +27,6 @@ public class Commentary {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getText() {
