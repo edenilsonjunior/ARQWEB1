@@ -33,3 +33,4 @@ newsWebsite/.project
 # pastas excluidas
 newsWebsite/target/
 newsWebsite/.settings/
+newsWebsite/bin/
