@@ -14,21 +14,35 @@ import br.edu.ifsp.arq.model.entity.User;
 public class UserDAO {
 
 	private static UserDAO instance;
-    private final String fileCSV = "data/usersData.csv";
+	private static String directoryPath = "/data/";
+    private static String fileCSV = directoryPath + "usersData.csv";
+    
     private Long counter = 0L;
 
     private UserDAO() {}
 
     public static UserDAO getInstance() {
+    	
         if (instance == null) {
             instance = new UserDAO();
+            
+            File directory = new File(directoryPath);
+            if (!directory.exists()) {
+                if (directory.mkdirs()) {
+                    System.out.println("Diretório criado com sucesso: " + directoryPath);
+                } else {
+                    System.out.println("Falha ao criar o diretório: " + directoryPath);
+                }
+            }
         }
         return instance;
     }
     
     public void addUser(User user) {
-    	try {    		
-    		File f = new File(fileCSV);
+    	
+    	var f = new File(fileCSV);
+    	
+    	try {    
 			FileWriter fw = new FileWriter(f, true);
 			System.out.println(f.getAbsolutePath());
 			PrintWriter pw = new PrintWriter(fw);
@@ -121,5 +135,4 @@ public class UserDAO {
             }
         }    
     }
-    
 }

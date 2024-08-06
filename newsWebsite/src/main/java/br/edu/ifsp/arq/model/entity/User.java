@@ -2,7 +2,7 @@ package br.edu.ifsp.arq.model.entity;
 
 import java.io.Serializable;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
+// import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class User implements Serializable {
 

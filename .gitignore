@@ -24,5 +24,12 @@ replay_pid*
 /.metadata/
 
 
-# Eclipse
 Servers/
+
+# arquivos excluidos
+newsWebsite/.classpath
+newsWebsite/.project
+
+# pastas excluidas
+newsWebsite/target/
+newsWebsite/.settings/
