@@ -14,8 +14,7 @@ import br.edu.ifsp.arq.model.entity.User;
 public class UserDAO {
 
 	private static UserDAO instance;
-	private final String projectPath = System.getProperty("user.dir");
-    private final String fileCSV = projectPath + "/Documentos/tsi3/NewsWebsiteProject/data/usersData.csv";
+    private final String fileCSV = "data/usersData.csv";
     private Long counter = 0L;
 
     private UserDAO() {}
@@ -29,8 +28,8 @@ public class UserDAO {
     
     public void addUser(User user) {
     	try {    		
-			FileWriter fw = new FileWriter(fileCSV, true);
-			File f = new File(fileCSV);
+    		File f = new File(fileCSV);
+			FileWriter fw = new FileWriter(f, true);
 			System.out.println(f.getAbsolutePath());
 			PrintWriter pw = new PrintWriter(fw);
 			var id = counter + 1;
@@ -46,7 +45,7 @@ public class UserDAO {
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
         
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileCSV))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(fileCSV)))) {
             String row;
             while ((row = reader.readLine()) != null) {
                 String[] parts = row.split(";");
