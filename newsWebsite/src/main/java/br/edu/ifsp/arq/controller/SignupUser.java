@@ -37,13 +37,19 @@ public class SignupUser extends HttpServlet {
         String password = request.getParameter("password");
         String message = "";
 
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-        	message = "Você deve preencher todos os campos";
+        if (userDAO.validateEmail(email)) {
+            if (username.isEmpty() ||  password.isEmpty()) {
+                message = "Você deve preencher todos os campos";
+                url = "/signup.jsp";
+                request.setAttribute("msg", message);
+            } else {
+                User user = new User(username, email, password);
+                userDAO.addUser(user);
+            }
+        } else {
+            message = "Email já existente";
             url = "/signup.jsp";
             request.setAttribute("msg", message);
-        } else {
-            User user = new User(username, email, password);
-            userDAO.addUser(user);
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

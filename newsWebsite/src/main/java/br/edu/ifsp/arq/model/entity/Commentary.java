@@ -7,7 +7,6 @@ public class Commentary {
 	private String text;
 	
 	public Commentary(Long id, User user, String text) {
-		super();
 		this.id = id;
 		this.user = user;
 		this.text = text;
@@ -35,5 +34,10 @@ public class Commentary {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	@Override
+	public String toString() {
+		return id + ";" + user + ";" + text;
 	}
 }

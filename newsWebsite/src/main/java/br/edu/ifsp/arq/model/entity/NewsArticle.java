@@ -7,28 +7,47 @@ import java.util.ArrayList;
 
 public class NewsArticle {
 
+	private Long id;
 	private String title;
 	private String author;
-	private LocalDate publishDate;
+	private String publishDate;
 	private String source;
 	private String summary;
 	private String text;
+	private final List<String> images;
+	private final List<Commentary> comments;
 	
-	private List<String> images;
-	private List<Commentary> comments;
-	
-	public NewsArticle(String title, String author, LocalDate publishDate, String source, String summary, String text) {
-		super();
+	public NewsArticle(Long id, String title, String author, String publishDate, String source, String summary, String text, List<String> images) {
+		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.publishDate = publishDate;
 		this.source = source;
 		this.summary = summary;
 		this.text = text;
-		this.images = new ArrayList<>();
+		this.images = new ArrayList<>(images);
 		this.comments = new ArrayList<>();
 	}
-	
+
+	public NewsArticle(String title, String author, String publishDate, String source, String summary, String text, List<String> images) {
+		this.title = title;
+		this.author = author;
+		this.publishDate = publishDate;
+		this.source = source;
+		this.summary = summary;
+		this.text = text;
+		this.images = new ArrayList<>(images);
+		this.comments = new ArrayList<>();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -45,11 +64,11 @@ public class NewsArticle {
 		this.author = author;
 	}
 	
-	public LocalDate getPublishDate() {
+	public String getPublishDate() {
 		return publishDate;
 	}
 	
-	public void setPublishDate(LocalDate publishDate) {
+	public void setPublishDate(String publishDate) {
 		this.publishDate = publishDate;
 	}
 	
@@ -76,11 +95,33 @@ public class NewsArticle {
 		this.text = text;
 	}
 
-	public void addImage(String image) {
-		this.images.add(image);
+	public void addImage(int index, String img) {
+		 this.images.add(index, img);
 	}
-	
-	public void addCommentary(Commentary commentary) {
-		this.comments.add(commentary);
+
+	public String imagesToString() {
+		StringBuilder sb = new StringBuilder();
+
+		for (String img : images) {
+			sb.append(";").append(img);
+		}
+
+		return sb.toString();
+	}
+
+	public String commentsToString() {
+		StringBuilder sb = new StringBuilder();
+
+		for (Commentary c : comments) {
+			sb.append(id);
+			sb.append(";").append(c.toString());
+		}
+
+		return sb.toString();
+	}
+
+	@Override
+	public String toString() {
+		return id + ";" + title + ";" + author + ";" + publishDate + ";" + source + ";" + summary + ";" + text + imagesToString();
 	}
 }
