@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.controller;
 
+//import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 
@@ -31,13 +32,13 @@ public class SearchNews extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String keyword = request.getParameter("keyword");
-//
-//        List<NewsArticle> newsList = NewsArticleDAO.getInstance().searchNews(keyword);
-//
-//        request.setAttribute("news_list", newsList);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("news.jsp");
-//        dispatcher.forward(request,response);
+        String keyword = request.getParameter("keyword");
+
+        List<NewsArticle> newsList = NewsArticleDAO.getInstance().searchNews(keyword);
+
+        request.setAttribute("news_list", newsList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("news.jsp");
+        dispatcher.forward(request,response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

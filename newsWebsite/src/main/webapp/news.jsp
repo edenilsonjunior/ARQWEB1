@@ -10,7 +10,7 @@
         </div>
       
         <article class="blog-post">
-            <h2 class="display-4 link-body-emphasis mb-1">New feature</h2>
+            <h2 class="display-4 link-body-emphasis mb-1">Titulo da noticia</h2>
             <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
     
             <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>

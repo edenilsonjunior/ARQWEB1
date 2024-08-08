@@ -8,7 +8,7 @@
 <%--<main class="container">--%>
 <%--    <div class="list-group">--%>
 <%--        <c:if test="${not empty listNews}">--%>
-<%--            <c:set var="listItemClass" value="list-group-item list-group-item-action active" />--%>
+<%--            <c:set var="listItemClass" value="list-group-item list-group-item-action active" style="display: block; width: 50%; margin: 0 auto;"/>--%>
 <%--                <c:forEach var="news" items="${listNews}">--%>
 <%--                    <a href="#" class="${listItemClass}" aria-current="true">--%>
 <%--                        <div class="d-flex w-100 justify-content-between">--%>
@@ -22,33 +22,22 @@
 <%--    </div>--%>
 <%--</main>--%>
 
-    <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">List group item heading</h5>
-          <small>3 days ago</small>
-        </div>
-        <p class="mb-1">Some placeholder content in a paragraph.</p>
-        <small>And some small print.</small>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">List group item heading</h5>
-          <small class="text-muted">3 days ago</small>
-        </div>
-        <p class="mb-1">Some placeholder content in a paragraph.</p>
-        <small class="text-muted">And some muted small print.</small>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">List group item heading</h5>
-          <small class="text-muted">3 days ago</small>
-        </div>
-        <p class="mb-1">Some placeholder content in a paragraph.</p>
-        <small class="text-muted">And some muted small print.</small>
-      </a>
-    </div>
+<h1 align="center">Noticias</h1>
 
+<main class="container">
+    <div class="bk-book p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <c:if test="${not empty listNews}">
+            <c:forEach var="news" items="${listNews}">
+                <div class="col-lg-6 px-0 ">
+                    <h1 class="display-4 fst-italic">${news.title}</h1>
+                    <p class="lead my-3">${news.text}</p>
+                    <p class="lead mb-0"><a href="news.jsp" class="fw-bold">Continue reading...</a></p>
+                    <small>${news.author}</small>
+                </div>
+            </c:forEach>
+        </c:if>
+    </div>
+</main>
 
 <%@ include file="includes/footer.jsp" %>
 <%@ include file="includes/footer-default.jsp" %>
