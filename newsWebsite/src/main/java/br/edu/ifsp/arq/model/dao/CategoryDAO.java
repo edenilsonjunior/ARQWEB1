@@ -9,7 +9,7 @@ import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 public class CategoryDAO {
 
     private static CategoryDAO instance = null;
-    private static final String directoryPath = "/data/";
+    private static final String directoryPath = "/home/aluno/";
     private static final String fileCSV = directoryPath + "categories.csv";
 
     private CategoryDAO() {}
@@ -33,25 +33,29 @@ public class CategoryDAO {
     }
 
 
-    public void add(NewsArticleCategory category) {
+    public boolean add(NewsArticleCategory category) {
+
+        var list = getAll();
+        Long id = 1L;
+
+        for (var c: list) {
+            if (c.getId() >= id) {
+                id = c.getId() + 1;
+            }
+
+            if(c.getCategory().equals(category.getCategory())) {
+                return false;
+            }
+        }
+        category.setId(id);
 
         try(var pw = new PrintWriter(new FileWriter(new File(fileCSV),true))) {
-
-            var list = getAll();
-            Long id = 1L;
-
-            for (var c: list) {
-                if (c.getId() >= id) {
-                    id = c.getId() + 1;
-                }
-            }
-            category.setId(id);
-
             pw.println(category);
 
         }  catch (IOException e) {
-            System.out.println(e.getMessage());
+            return false;
         }
+        return true;
     }
 
     public List<NewsArticleCategory> getAll() {
@@ -122,5 +126,36 @@ public class CategoryDAO {
                 add(c);
             }
         }
+    }
+
+    public NewsArticleCategory getById(Long id) {
+
+        var categories = getAll();
+
+        return categories.stream()
+                .filter(c -> c.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean deleteById(Long id) {
+        var category = getById(id);
+        if (category != null) {
+            delete(category);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean update(NewsArticleCategory category) {
+        var categories = getAll();
+        deleteFile();
+        for (var c: categories) {
+            if (c.getId().equals(category.getId())) {
+                c.setCategory(category.getCategory());
+            }
+            add(c);
+        }
+        return true;
     }
 }

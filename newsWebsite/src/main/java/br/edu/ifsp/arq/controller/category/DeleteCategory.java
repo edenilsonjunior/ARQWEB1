@@ -1,5 +1,7 @@
 package br.edu.ifsp.arq.controller.category;
 
+import br.edu.ifsp.arq.model.dao.CategoryDAO;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,34 +9,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class DeleteCategory
- */
 @WebServlet("/deleteCategory")
 public class DeleteCategory extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteCategory() {
-        super();
-        // TODO Auto-generated constructor stub
+
+    public DeleteCategory() { super(); }
+
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        Long id = Long.parseLong(request.getParameter("id"));
+        String url = "/category/listCategory.jsp";
+
+        var dao = CategoryDAO.getInstance();
+        var result = dao.deleteById(id);
+
+        if(!result)
+            request.setAttribute("error", "Erro ao deletar a categoria");
+
+        var categories = dao.getAll();
+        request.setAttribute("categories", categories);
+
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        response.getWriter().append("Served at: ").append(request.getContextPath());
-    }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         doGet(request, response);
     }
 }

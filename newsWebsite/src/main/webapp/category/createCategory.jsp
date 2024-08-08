@@ -1,24 +1,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-</head>
-<body>
 
-    <c:if test="${not empty message}">
-        <div style="color: red;">${message}</div>
-    </c:if>
+<c:import url="../includes/header-default.jsp"/>
 
-    <h1>Criar Categoria</h1>
-    <form action="../createCategory" method="post">
-        <label for="category">Nome da Categoria:</label>
-        <input type="text" id="category" name="category" required>
-        <br>
-        <input type="submit" value="Criar Categoria">
-    </form>
-</body>
-</html>
+	<main class="container">
+
+		<c:if test="${not empty msg}">
+	        <div class="alert alert-danger" role="alert">${msg}</div>
+	    </c:if>
+
+        <div class="container-login pt-1 pb-5 my-5">
+            <h1 class="my-5 text-center">Criar Categoria</h1>
+
+            <div class="container form-container">
+                <form action="../createCategory" method="post">
+                    <div class="mb-3">
+                    <label for="category" class="form-label">Nome</label>
+                    <input class="form-control" id="category" name="category">
+                    </div>
+                    <button type="submit" class="btn btn-secondary px-4">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+
+<c:import url="../includes/footer.jsp"/>
+<c:import url="../includes/footer-default.jsp"/>
