@@ -1,5 +1,6 @@
 package br.edu.ifsp.arq.model.dao;
 
+import br.edu.ifsp.arq.model.entity.Commentary;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 
 import java.io.*;
@@ -32,6 +33,7 @@ public class NewsArticleDAO {
             PrintWriter pw = new PrintWriter(fw);
             var id = counter + 1;
             newsArticle.setId(id);
+            pw.println(newsArticle);
             pw.close();
             fw.close();
         }  catch (IOException e) {
@@ -57,7 +59,8 @@ public class NewsArticleDAO {
                     List<String> images = new ArrayList<>();
                     images.add(0,parts[7]);
                     images.add(1,parts[8]);
-                    NewsArticle news = new NewsArticle(id, title, author, publishDate, source, summary, text, images);
+                    List<Commentary> comments = getCommentsById(id);
+                    NewsArticle news = new NewsArticle(id, title, author, publishDate, source, summary, text, images, comments);
                     newsArticleList.add(news);
                 }
             }
@@ -118,5 +121,10 @@ public class NewsArticleDAO {
                 addNewsArticle(n);
             }
         }
+    }
+
+    private List<Commentary> getCommentsById(Long id) {
+        var comment = CommentaryDAO.getInstance();
+        return comment.getCommentsById(id);
     }
 }

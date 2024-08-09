@@ -38,6 +38,6 @@ public class Commentary {
 
 	@Override
 	public String toString() {
-		return id + ";" + user + ";" + text;
+		return id + ";" + user.getId() + ";" + user.getUsername()+ ";" + text;
 	}
 }
