@@ -3,14 +3,14 @@
          pageEncoding="UTF-8" %>
 
 <c:import url="../includes/header-default.jsp"/>
-
+<c:import url="../includes/navbar-logged-in.jsp"/>
 
 	<main class="container">
 
     <h1>Lista de Categorias</h1>
 
-    <c:if test="${not empty error}">
-        <div style="color: red;">${message}</div>
+    <c:if test="${not empty msg }">
+        <div class="alert alert-danger" role="alert">${msg}</div>
     </c:if>
 
 	<table class="table table-striped">

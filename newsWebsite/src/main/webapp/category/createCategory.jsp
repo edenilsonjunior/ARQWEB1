@@ -3,6 +3,7 @@
          pageEncoding="UTF-8" %>
 
 <c:import url="../includes/header-default.jsp"/>
+<c:import url="../includes/navbar-logged-in.jsp"/>
 
 	<main class="container">
 

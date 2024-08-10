@@ -52,7 +52,7 @@
                 <label for="image2" class="form-label">Imagem 2</label>
                 <input type="text" class="form-control" id="image2" name="image2">
             </div>
-            <button type="submit" class="btn btn-secondary px-4">Enviar</button>
+            <button type="submit" class="btn btn-warning px-4">Editar</button>
         </form>
     </div>
 

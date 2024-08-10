@@ -22,7 +22,6 @@ public class CreateCategory extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
 
@@ -31,19 +30,20 @@ public class CreateCategory extends HttpServlet {
 
         String url = "/retrieveCategory";
         String category = request.getParameter("category");
+        String msg = " ";
 
         if (category != null && !category.isEmpty()) {
             var dao = CategoryDAO.getInstance();
             var result = dao.add(new NewsArticleCategory(category));
 
             if(!result) {
-                String message = "Erro ao adicionar a categoria!";
-                request.setAttribute("message", message);
+                msg = "Erro ao adicionar a categoria!";
+                request.setAttribute("message", msg);
                 url = "/category/createCategory.jsp";
             }
         } else {
-            String message = "Preencha o campo corretamente!";
-            request.setAttribute("message", message);
+            msg = "Preencha o campo corretamente!";
+            request.setAttribute("message", msg);
             url = "/category/createCategory.jsp";
         }
 
