@@ -9,29 +9,16 @@ import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 public class CategoryDAO {
 
     private static CategoryDAO instance = null;
-    private static final String directoryPath = "/home/aluno/";
-    private static final String fileCSV = directoryPath + "categories.csv";
+    private static final String fileCSV =  "/home/henrique/categoryData.csv";
 
     private CategoryDAO() {}
 
     public static CategoryDAO getInstance() {
-
         if(instance == null) {
             instance = new CategoryDAO();
-
-            File directory = new File(directoryPath);
-            if (!directory.exists()) {
-                if (directory.mkdirs()) {
-                    System.out.println("Diretório criado com sucesso: " + directoryPath);
-                } else {
-                    System.out.println("Falha ao criar o diretório: " + directoryPath);
-                }
-            }
         }
-
         return instance;
     }
-
 
     public boolean add(NewsArticleCategory category) {
 

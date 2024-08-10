@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.controller;
+package br.edu.ifsp.arq.controller.user;
 
 import java.io.IOException;
 

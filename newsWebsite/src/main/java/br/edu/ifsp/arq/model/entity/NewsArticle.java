@@ -13,10 +13,11 @@ public class NewsArticle {
 	private String source;
 	private String summary;
 	private String text;
+	private NewsArticleCategory category;
 	private final List<String> images;
 	private final List<Commentary> comments;
 	
-	public NewsArticle(Long id, String title, String author, String publishDate, String source, String summary, String text, List<String> images, List<Commentary> comments) {
+	public NewsArticle(Long id, String title, String author, String publishDate, String source, String summary, String text, NewsArticleCategory category, List<String> images, List<Commentary> comments) {
 		this.id = id;
 		this.title = title;
 		this.author = author;
@@ -24,8 +25,25 @@ public class NewsArticle {
 		this.source = source;
 		this.summary = summary;
 		this.text = text;
+		this.category = category;
 		this.images = new ArrayList<>(images);
 		this.comments = new ArrayList<>(comments);
+	}
+
+	public NewsArticle(String title, String author, String publishDate, String source, String summary, String text, NewsArticleCategory category, List<String> images) {
+		this.title = title;
+		this.author = author;
+		this.publishDate = publishDate;
+		this.source = source;
+		this.summary = summary;
+		this.text = text;
+		this.category = category;
+		this.images = new ArrayList<>();
+		if (!(images.isEmpty())) {
+			this.images.add(0, images.get(0));
+			this.images.add(1, images.get(1));
+		}
+		this.comments = new ArrayList<>();
 	}
 
 	public Long getId() {
@@ -83,8 +101,24 @@ public class NewsArticle {
 		this.text = text;
 	}
 
+	public NewsArticleCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(NewsArticleCategory category) {
+		this.category = category;
+	}
+
 	public void addImage(int index, String img) {
 		 this.images.add(index, img);
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public List<Commentary> getComments() {
+		return comments;
 	}
 
 	public String imagesToString() {
@@ -99,6 +133,6 @@ public class NewsArticle {
 
 	@Override
 	public String toString() {
-		return id + ";" + title + ";" + author + ";" + publishDate + ";" + source + ";" + summary + ";" + text + imagesToString();
+		return id + ";" + title + ";" + author + ";" + publishDate + ";" + source + ";" + summary + ";" + text + ";" + category.getId() + ";" + imagesToString();
 	}
 }
