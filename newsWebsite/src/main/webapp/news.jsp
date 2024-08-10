@@ -34,7 +34,7 @@
         <p class="blog-post-meta">December 14, 2020</p>
         <hr>
 
-        <p><strong>Edcu</strong></p>
+        <p><strong>Edcsu</strong></p>
         <p>It has been written to fill the available space and show how a longer. Third list item to close it out</p>
         <p class="blog-post-meta">December 14, 2020</p>
         <hr>
