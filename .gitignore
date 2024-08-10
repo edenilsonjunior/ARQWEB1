@@ -34,4 +34,5 @@ newsWebsite/.project
 newsWebsite/target/
 newsWebsite/.settings/
 newsWebsite/bin/
+newsWebsite/.smarttomcat/
 newsWebsite/.idea/
