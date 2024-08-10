@@ -123,6 +123,11 @@ public class NewsArticleDAO {
         }
     }
 
+    public void addComentary(Commentary commentary, NewsArticle newsArticle) {
+        var comment = CommentaryDAO.getInstance();
+        comment.addCommentary(commentary, newsArticle.getId());
+    }
+
     private List<Commentary> getCommentsById(Long id) {
         var comment = CommentaryDAO.getInstance();
         return comment.getCommentsById(id);
