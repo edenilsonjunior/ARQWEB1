@@ -1,15 +1,12 @@
 package br.edu.ifsp.arq.model.dao;
 
-import java.io.*;
-import java.util.List;
-import java.util.ArrayList;
 
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 
-public class CategoryDAO {
+public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
 
     private static CategoryDAO instance = null;
-    private static final String fileCSV =  "/home/henrique/categoryData.csv";
+    private static final String fileCSV =  "/data/categoryData.csv";
 
     private CategoryDAO() {}
 
@@ -20,64 +17,52 @@ public class CategoryDAO {
         return instance;
     }
 
+
+    @Override
+    protected String getFilePath() {
+        return fileCSV;
+    }
+
+    @Override
+    protected NewsArticleCategory parse(String[] parts) {
+        Long id = Long.parseLong(parts[0]);
+        String category = parts[1];
+
+        return new NewsArticleCategory(id, category);
+    }
+
+    @Override
+    protected String toCsv(NewsArticleCategory entity) {
+        return entity.toString();
+    }
+
+    @Override
+    protected Long getId(NewsArticleCategory entity) {
+        return entity.getId();
+    }
+
+    @Override
     public boolean add(NewsArticleCategory category) {
-
         var list = getAll();
-        Long id = 1L;
 
-        for (var c: list) {
-            if (c.getId() >= id) {
-                id = c.getId() + 1;
+        if (category.getId() == null) {
+            Long id = 1L;
+            for (var c: list) {
+                if (c.getId() >= id) {
+                    id = c.getId() + 1;
+                }
+
+                if(c.getCategory().equals(category.getCategory())) {
+                    return false;
+                }
             }
-
-            if(c.getCategory().equals(category.getCategory())) {
-                return false;
-            }
+            category.setId(id);
         }
-        category.setId(id);
 
-        try(var pw = new PrintWriter(new FileWriter(new File(fileCSV),true))) {
-            pw.println(category);
-
-        }  catch (IOException e) {
-            return false;
-        }
-        return true;
+        return super.add(category);
     }
 
-    public List<NewsArticleCategory> getAll() {
 
-        var categories = new ArrayList<NewsArticleCategory>();
-
-        try (var reader = new BufferedReader(new FileReader(new File(fileCSV)))) {
-
-            String row;
-            while ((row = reader.readLine()) != null) {
-                String[] parts = row.split(";");
-
-                Long id = Long.parseLong(parts[0]);
-                String category = parts[1];
-
-                categories.add(new NewsArticleCategory(id, category));
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return categories;
-    }
-
-    private void deleteFile() {
-        try {
-            FileWriter fw = new FileWriter(fileCSV, false);
-            PrintWriter pw = new PrintWriter(fw);
-            pw.print("");
-            pw.close();
-            fw.close();
-        }  catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public NewsArticleCategory getByCategory(String category) {
 
@@ -103,6 +88,7 @@ public class CategoryDAO {
         }
     }
 
+
     public void delete(NewsArticleCategory category) {
 
         var categories = getAll();
@@ -115,6 +101,7 @@ public class CategoryDAO {
         }
     }
 
+
     public NewsArticleCategory getById(Long id) {
 
         var categories = getAll();
@@ -125,6 +112,7 @@ public class CategoryDAO {
                 .orElse(null);
     }
 
+
     public boolean deleteById(Long id) {
         var category = getById(id);
         if (category != null) {
@@ -133,6 +121,7 @@ public class CategoryDAO {
         }
         return false;
     }
+
 
     public boolean update(NewsArticleCategory category) {
         var categories = getAll();

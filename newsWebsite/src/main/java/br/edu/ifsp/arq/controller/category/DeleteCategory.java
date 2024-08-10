@@ -1,6 +1,8 @@
 package br.edu.ifsp.arq.controller.category;
 
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
+import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
+
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -21,16 +23,23 @@ public class DeleteCategory extends HttpServlet {
             throws ServletException, IOException {
 
         Long id = Long.parseLong(request.getParameter("id"));
-        String url = "/category/listCategory.jsp";
+        String url = "/retrieveCategory";
 
-        var dao = CategoryDAO.getInstance();
-        var result = dao.deleteById(id);
+        var categoryDAO = CategoryDAO.getInstance();
+        var newsArticleDAO = NewsArticleDAO.getInstance();
+
+        var newsList = newsArticleDAO.getNewsArticleCategories(id);
+
+        if(!newsList.isEmpty()) {
+            request.setAttribute("error", "Não é possível deletar a categoria pois existem notícias associadas a ela");
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+            return;
+        }
+
+        var result = categoryDAO.deleteById(id);
 
         if(!result)
             request.setAttribute("error", "Erro ao deletar a categoria");
-
-        var categories = dao.getAll();
-        request.setAttribute("categories", categories);
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
