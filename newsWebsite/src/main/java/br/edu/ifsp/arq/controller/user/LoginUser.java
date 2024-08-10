@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.controller;
+package br.edu.ifsp.arq.controller.user;
 
 import java.io.IOException;
 
@@ -36,13 +36,13 @@ public class LoginUser extends HttpServlet {
 		User user = udao.getUserByEmail(email);
 		
 		if(user != null) {
-			if(user.getPassword().equals(password)) {
+			if(user.checkPassword(password)) {
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);	
 				session.setAttribute("isLogged", true);	
 				response.sendRedirect("index.jsp");
 			}else {
-				request.setAttribute("msg", "Não foi possível realizar Login, verifique Usuário e Senha");
+				request.setAttribute("msg", "Não foi possível realizar Login, verifique Email e Senha");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 				dispatcher.forward(request, response);
 			}
