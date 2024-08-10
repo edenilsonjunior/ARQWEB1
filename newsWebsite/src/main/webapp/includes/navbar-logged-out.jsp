@@ -21,12 +21,12 @@
                   <a class="nav-link" href="about.jsp">Sobre</a>
                 </li>
               </ul>
-              <form class="d-flex mt-2" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <form class="d-flex" role="search" action="search" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
                 <button class="btn btn-light" type="submit">
                   <i class="fas fa-search"></i>
                 </button>
-              </form> 
+              </form>
               <ul class="navbar-nav me-right mb-2 mb-lg-0 mx-1 mt-2">
                 <li class="nav-item dropdown">
                       <a href="signup.jsp" class="btn btn-outline-secondary" role="button">SignUp</a>
