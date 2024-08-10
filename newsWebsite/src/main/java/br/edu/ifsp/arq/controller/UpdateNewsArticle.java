@@ -29,7 +29,8 @@ public class UpdateNewsArticle extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         String url = "/updateNewsArticle.jsp";
-
+        request.setAttribute("newsArticle", newsArticleDAO.getNewsArticleById(id));
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,7 +52,7 @@ public class UpdateNewsArticle extends HttpServlet {
             imageList.add(image1);
             imageList.add(image2);
             NewsArticle newsArticle = new NewsArticle(title, author, publishDate, source, summary, text, newsArticleCategory, imageList);
-            newsArticleDAO.addNewsArticle(newsArticle);
+            newsArticleDAO.editNewsArticle(newsArticle);
 
         } catch (Exception e) {
             System.out.println("Error creating news article: " + e.getMessage());
