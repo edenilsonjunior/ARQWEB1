@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.controller;
+package br.edu.ifsp.arq.controller.news;
 
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
@@ -28,7 +28,7 @@ public class UpdateNewsArticle extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        String url = "/updateNewsArticle.jsp";
+        String url = "/news/updateNewsArticle.jsp";
         request.setAttribute("newsArticle", newsArticleDAO.getNewsArticleById(id));
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -44,7 +44,6 @@ public class UpdateNewsArticle extends HttpServlet {
         Long category = Long.parseLong(request.getParameter("category"));
         String image1 = request.getParameter("image1");
         String image2 = request.getParameter("image2");
-        String msg = " ";
 
         try {
             NewsArticleCategory newsArticleCategory = categoryDAO.getById(category);
@@ -56,7 +55,7 @@ public class UpdateNewsArticle extends HttpServlet {
 
         } catch (Exception e) {
             System.out.println("Error creating news article: " + e.getMessage());
-            url = "/updateNewsArticle.jsp";
+            url = "/news/updateNewsArticle.jsp";
         }
         
         getServletContext().getRequestDispatcher(url).forward(request, response);

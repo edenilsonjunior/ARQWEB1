@@ -1,6 +1,6 @@
-package br.edu.ifsp.arq.controller;
+package br.edu.ifsp.arq.controller.news;
 
-import br.edu.ifsp.arq.model.dao.MockNewsArticleDAO;
+import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 
 import java.io.IOException;
@@ -22,18 +22,20 @@ public class SearchNews extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String keyword = request.getParameter("keyword");
-        List<NewsArticle> newsList = MockNewsArticleDAO.getInstance().getNewsArticleSearched(keyword);
+
+        String keyword = request.getParameter("keyword").toLowerCase();
+
+        List<NewsArticle> newsList = NewsArticleDAO.getInstance().getNewsArticleSearched(keyword);
         List<NewsArticle> filteredNewsList = newsList.stream()
             .filter(newsArticle -> newsArticle.getSummary().contains(keyword) ||
-               newsArticle.getText().contains(keyword) ||
-               newsArticle.getTitle().contains(keyword) ||
-               newsArticle.getAuthor().contains(keyword) ||
-               newsArticle.getSource().contains(keyword))
+               newsArticle.getText().toLowerCase().contains(keyword) ||
+               newsArticle.getTitle().toLowerCase().contains(keyword) ||
+               newsArticle.getAuthor().toLowerCase().contains(keyword) ||
+               newsArticle.getSource().toLowerCase().contains(keyword))
                .collect(Collectors.toList());
 
         request.setAttribute("listNews", filteredNewsList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("newsSearch.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/news/newsSearch.jsp");
         dispatcher.forward(request, response);
     }
 

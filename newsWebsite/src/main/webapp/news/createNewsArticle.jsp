@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="includes/header-default.jsp" %>
-<%@ include file="includes/navbar-logged-in.jsp" %>
+<%@ include file="../includes/navbar/header-default.jsp" %>
+<%@ include file="../includes/navbar/navbar-logged-in.jsp" %>
 
 <c:if test="${empty categoryList}">
     <c:redirect url="/utilServlet"/>
@@ -58,5 +58,5 @@
 
 </main>
 
-<%@ include file="includes/footer.jsp" %>
-<%@ include file="includes/footer-default.jsp" %>
+<%@ include file="../includes/footer/footer.jsp" %>
+<%@ include file="../includes/footer/footer-default.jsp" %>

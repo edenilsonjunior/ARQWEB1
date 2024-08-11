@@ -18,7 +18,7 @@ main {
 }
 
 .bk-news {
-    background-image: url("../assets/news-background.jpeg");
+    background-image: url("../images/news-background.jpeg");
     background-size: cover; 
     background-position: center; 
 }

@@ -1,9 +1,12 @@
 package br.edu.ifsp.arq.model.dao;
 
+
+/*
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MockNewsArticleDAO extends NewsArticleDAO {
 
@@ -44,4 +47,4 @@ public class MockNewsArticleDAO extends NewsArticleDAO {
         }
         return null;
     }
-}
+}*/

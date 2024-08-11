@@ -1,17 +1,18 @@
 package br.edu.ifsp.arq.model.dao;
 
+/*
 import br.edu.ifsp.arq.model.entity.Commentary;
 import br.edu.ifsp.arq.model.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockCommentaryDAO extends CommentaryDAO {
+public class MockCommentaryDAODeprecated extends CommentaryDAO {
 
-    private static MockCommentaryDAO instance;
-    private List<Commentary> mockCommentaryList = new ArrayList<>();
+    private static MockCommentaryDAODeprecated instance;
+    private final List<Commentary> mockCommentaryList = new ArrayList<>();
 
-    private MockCommentaryDAO() {
+    private MockCommentaryDAODeprecated() {
         super();
         // Adicionando comentários mock para a notícia com ID 1
         User user1 = new User(1L, "user1", "user1@example.com");
@@ -21,9 +22,9 @@ public class MockCommentaryDAO extends CommentaryDAO {
         mockCommentaryList.add(new Commentary(1L, user2, "Comentário 2 para a notícia 1"));
     }
 
-    public static MockCommentaryDAO getInstance() {
+    public static MockCommentaryDAODeprecated getInstance() {
         if (instance == null) {
-            instance = new MockCommentaryDAO();
+            instance = new MockCommentaryDAODeprecated();
         }
         return instance;
     }
@@ -70,4 +71,4 @@ public class MockCommentaryDAO extends CommentaryDAO {
         commentary.setText(commentary.getText());
         mockCommentaryList.add(commentary);
     }
-}
+}*/

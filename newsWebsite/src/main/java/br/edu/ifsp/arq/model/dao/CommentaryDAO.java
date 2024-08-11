@@ -76,7 +76,7 @@ public class CommentaryDAO {
         List<Commentary> commentaryList = getCommentary();
         List<Commentary> cmmtsList = new ArrayList<>();
         for (Commentary c : commentaryList) {
-            if (c.getId() == newsArticleId) {
+            if (c.getId().equals(newsArticleId)) {
                 cmmtsList.add(c);
             }
         }

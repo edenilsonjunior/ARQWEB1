@@ -31,7 +31,7 @@ public class SignupUser extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/login.jsp";
+		String url = "/user/login.jsp";
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -40,7 +40,7 @@ public class SignupUser extends HttpServlet {
         if (userDAO.validateEmail(email)) {
             if (username.isEmpty() ||  password.isEmpty()) {
                 message = "Você deve preencher todos os campos";
-                url = "/signup.jsp";
+                url = "/user/signup.jsp";
                 request.setAttribute("msg", message);
             } else {
                 User user = new User(username, email, password);
@@ -48,7 +48,7 @@ public class SignupUser extends HttpServlet {
             }
         } else {
             message = "Email já existente";
-            url = "/signup.jsp";
+            url = "/user/signup.jsp";
             request.setAttribute("msg", message);
         }
 

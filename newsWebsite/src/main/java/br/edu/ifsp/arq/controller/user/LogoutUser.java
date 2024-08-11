@@ -23,14 +23,14 @@ public class LogoutUser extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("/user/index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("/user/index.jsp");
 	}
 
 }

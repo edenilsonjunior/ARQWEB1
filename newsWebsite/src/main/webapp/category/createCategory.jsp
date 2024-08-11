@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
-<%@ include file="../includes/header-default.jsp" %>
+<%@ include file="../includes/navbar/header-default.jsp" %>
 
 
 	<main class="container">
@@ -28,5 +28,5 @@
     </main>
 
 
-<c:import url="../includes/footer.jsp"/>
-<c:import url="../includes/footer-default.jsp"/>
+<c:import url="../includes/footer/footer.jsp"/>
+<c:import url="../includes/footer/footer-default.jsp"/>
