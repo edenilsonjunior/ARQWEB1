@@ -11,7 +11,7 @@ public class CommentaryDAO {
     private static CommentaryDAO instance;
     private static final String fileCSV =  "/data/commentaryData.csv";
 
-    private CommentaryDAO() {}
+    CommentaryDAO() {}
 
     public static CommentaryDAO getInstance() {
         if (instance == null) {

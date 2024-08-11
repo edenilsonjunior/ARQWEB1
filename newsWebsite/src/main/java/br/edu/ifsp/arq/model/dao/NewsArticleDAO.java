@@ -15,7 +15,7 @@ public class NewsArticleDAO {
 
     private final Long counter = 0L;
 
-    private NewsArticleDAO() {}
+    NewsArticleDAO() {}
 
     public static NewsArticleDAO getInstance() {
         if (instance == null) {
