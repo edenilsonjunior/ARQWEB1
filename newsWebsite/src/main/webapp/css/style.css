@@ -63,6 +63,29 @@ footer {
     border-radius: 5px;
 }
 
+.comment-section {
+    margin-top: 20px;
+}
+
+.comment {
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.comment-author {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    font-family: Consolas, monospace;
+}
+
+.comment-text {
+    font-size: 1em;
+    line-height: 1.5;
+}
+
 @media (min-width: 768px) {
     .img-news {
         height: 400px; 
