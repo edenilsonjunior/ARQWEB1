@@ -12,6 +12,11 @@ public class Commentary {
 		this.text = text;
 	}
 
+	public Commentary(User user, String text) {
+		this.user = user;
+		this.text = text;
+	}
+
 	public Long getId() {
 		return id;
 	}

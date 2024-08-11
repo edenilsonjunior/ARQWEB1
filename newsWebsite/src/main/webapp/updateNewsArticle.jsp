@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="../includes/navbar/header-default.jsp" %>
-<%@ include file="../includes/navbar/navbar-logged-in.jsp" %>
+<%@ include file="includes/navbar/header-default.jsp" %>
+<%@ include file="includes/navbar/navbar-logged-in.jsp" %>
 
 <c:if test="${empty categoryList}">
     <c:redirect url="/utilServlet"/>
@@ -52,11 +52,11 @@
                 <label for="image2" class="form-label">Imagem 2</label>
                 <input type="text" class="form-control" id="image2" name="image2">
             </div>
-            <button type="submit" class="btn btn-secondary px-4">Enviar</button>
+            <button type="submit" class="btn btn-warning px-4">Editar</button>
         </form>
     </div>
 
 </main>
 
-<%@ include file="../includes/footer/footer.jsp" %>
-<%@ include file="../includes/footer/footer-default.jsp" %>
+<%@ include file="includes/footer/footer.jsp" %>
+<%@ include file="includes/footer/footer-default.jsp" %>

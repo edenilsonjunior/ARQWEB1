@@ -52,7 +52,7 @@ public class CreateNewsArticle extends HttpServlet {
 
         } catch (Exception e) {
             System.out.println("Error creating news article: " + e.getMessage());
-            url = "/news/createNewsArticle.jsp";
+            url = "/createNewsArticle.jsp";
         }
         
         getServletContext().getRequestDispatcher(url).forward(request, response);

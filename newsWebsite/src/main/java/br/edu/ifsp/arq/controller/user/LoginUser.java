@@ -43,7 +43,7 @@ public class LoginUser extends HttpServlet {
 				response.sendRedirect("index.jsp");
 			}else {
 				request.setAttribute("msg", "Não foi possível realizar Login, verifique Email e Senha");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/user/login.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 				dispatcher.forward(request, response);
 			}
 		}	

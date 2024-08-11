@@ -23,19 +23,11 @@ public class SearchNews extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String keyword = request.getParameter("keyword").toLowerCase();
-
+        String keyword = request.getParameter("keyword");
         List<NewsArticle> newsList = NewsArticleDAO.getInstance().getNewsArticleSearched(keyword);
-        List<NewsArticle> filteredNewsList = newsList.stream()
-            .filter(newsArticle -> newsArticle.getSummary().contains(keyword) ||
-               newsArticle.getText().toLowerCase().contains(keyword) ||
-               newsArticle.getTitle().toLowerCase().contains(keyword) ||
-               newsArticle.getAuthor().toLowerCase().contains(keyword) ||
-               newsArticle.getSource().toLowerCase().contains(keyword))
-               .collect(Collectors.toList());
 
-        request.setAttribute("listNews", filteredNewsList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/news/newsSearch.jsp");
+        request.setAttribute("listNews", newsList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/newsSearch.jsp");
         dispatcher.forward(request, response);
     }
 

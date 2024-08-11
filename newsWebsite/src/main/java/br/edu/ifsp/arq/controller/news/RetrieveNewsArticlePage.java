@@ -43,7 +43,7 @@ public class RetrieveNewsArticlePage extends HttpServlet {
             List<Commentary> commentary = CommentaryDAO.getInstance().getCommentsById(id);
             request.setAttribute("listCommentary", commentary);
 
-            getServletContext().getRequestDispatcher("/news/news.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/news.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid news ID");
         }

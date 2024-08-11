@@ -5,7 +5,7 @@
       <header class="border-bottom lh-1 py-2">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img alt="logo" src="../../assets/images/IFNews.png" width="100px"></a>
+            <a class="navbar-brand" href="#"><img alt="logo" src="${pageContext.request.contextPath}/assets/images/IFNews.png" width="100px"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,7 +21,7 @@
                   <a class="nav-link" href="about.jsp">Sobre</a>
                 </li>
               </ul>
-              <form class="d-flex" role="search" action="news/search" method="get">
+              <form class="d-flex" role="search" action="${pageContext.request.contextPath}/search" method="get">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
                 <button class="btn btn-light" type="submit">
                   <i class="fas fa-search"></i>
@@ -29,8 +29,8 @@
               </form>
               <ul class="navbar-nav me-right mb-2 mb-lg-0 mx-1 mt-2">
                 <li class="nav-item dropdown">
-                      <a href="user/signup.jsp" class="btn btn-outline-secondary" role="button">SignUp</a>
-                      <a href="user/login.jsp" class="btn btn-secondary" role="button">Login</a>
+                      <a href="signup.jsp" class="btn btn-outline-secondary" role="button">SignUp</a>
+                      <a href="login.jsp" class="btn btn-secondary" role="button">Login</a>
                 </li>
               </ul>
             </div>

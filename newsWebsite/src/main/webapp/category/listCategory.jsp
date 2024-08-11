@@ -25,7 +25,7 @@
 
 <main class="container">
 
-    <h1 class="text-center mb-4">Noticias por categoria</h1>
+    <h1 class="my-5 text-center">Notícias por Categoria</h1>
 
     <c:if test="${not empty error}">
         <div class="alert alert-danger" role="alert">${error}</div>

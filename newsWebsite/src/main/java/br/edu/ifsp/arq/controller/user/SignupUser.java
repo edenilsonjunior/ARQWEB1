@@ -29,18 +29,18 @@ public class SignupUser extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/user/login.jsp";
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String url = "/login.jsp";
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String message = "";
+        String message = " ";
 
         if (userDAO.validateEmail(email)) {
-            if (username.isEmpty() ||  password.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty()) {
                 message = "Você deve preencher todos os campos";
-                url = "/user/signup.jsp";
+                url = "/signup.jsp";
                 request.setAttribute("msg", message);
             } else {
                 User user = new User(username, email, password);
@@ -48,11 +48,12 @@ public class SignupUser extends HttpServlet {
             }
         } else {
             message = "Email já existente";
-            url = "/user/signup.jsp";
+            url = "/signup.jsp";
             request.setAttribute("msg", message);
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
-	}
+    }
+
 
 }
