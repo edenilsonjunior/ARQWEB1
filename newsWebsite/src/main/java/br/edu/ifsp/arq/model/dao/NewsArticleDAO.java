@@ -11,11 +11,11 @@ import java.util.Objects;
 
 public class NewsArticleDAO {
     private static NewsArticleDAO instance;
-    private static final String fileCSV =  "/home/henrique/newsArticleData.csv";
+    private static final String fileCSV =  "/data/newsArticleData.csv";
 
     private final Long counter = 0L;
 
-    private NewsArticleDAO() {}
+    NewsArticleDAO() {}
 
     public static NewsArticleDAO getInstance() {
         if (instance == null) {

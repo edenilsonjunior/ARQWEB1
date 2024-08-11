@@ -14,7 +14,7 @@ import br.edu.ifsp.arq.model.entity.User;
 public class UserDAO {
 
 	private static UserDAO instance;
-    private static final String fileCSV =  "/home/henrique/usersData.csv";
+    private static final String fileCSV =  "/data/usersData.csv";
     
     private final Long counter = 0L;
 

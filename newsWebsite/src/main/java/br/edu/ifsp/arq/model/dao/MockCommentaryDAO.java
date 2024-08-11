@@ -63,4 +63,11 @@ public class MockCommentaryDAO extends CommentaryDAO {
     public void deleteCommentary(Commentary commentToDelete) {
         mockCommentaryList.removeIf(c -> c.getId().equals(commentToDelete.getId()) && c.getUser().getId().equals(commentToDelete.getUser().getId()));
     }
+
+    public void addCommentary(Commentary commentary, Long newsId, User user) {
+        commentary.setId(newsId);
+        commentary.setUser(user);
+        commentary.setText(commentary.getText());
+        mockCommentaryList.add(commentary);
+    }
 }

@@ -9,9 +9,9 @@ import java.util.List;
 
 public class CommentaryDAO {
     private static CommentaryDAO instance;
-    private static final String fileCSV =  "/home/henrique/commentaryData.csv";
+    private static final String fileCSV =  "/data/commentaryData.csv";
 
-    private CommentaryDAO() {}
+    CommentaryDAO() {}
 
     public static CommentaryDAO getInstance() {
         if (instance == null) {

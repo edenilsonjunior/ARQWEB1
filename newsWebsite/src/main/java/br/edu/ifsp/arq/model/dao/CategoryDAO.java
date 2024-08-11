@@ -9,7 +9,7 @@ import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 public class CategoryDAO {
 
     private static CategoryDAO instance = null;
-    private static final String fileCSV =  "/home/henrique/categoryData.csv";
+    private static final String fileCSV =  "/data/categoryData.csv";
 
     private CategoryDAO() {}
 
