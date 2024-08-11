@@ -11,11 +11,18 @@ main {
     margin: 2%
 }
 
+.bk-book {
+    background-image: url("assets/bklivro.png");
+    background-size: cover; 
+    background-position: center; 
+}
+
 .bk-news {
     background-image: url("../assets/news-background.jpeg");
     background-size: cover; 
     background-position: center; 
 }
+
 
 .form-container {
     width: 70%;

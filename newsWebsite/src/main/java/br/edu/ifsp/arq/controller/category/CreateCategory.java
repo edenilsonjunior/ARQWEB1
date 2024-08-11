@@ -36,6 +36,7 @@ public class CreateCategory extends HttpServlet {
 
         String url = "/retrieveCategory";
         String category = request.getParameter("category");
+        String msg = " ";
 
         if (category != null && !category.isEmpty()) {
 
@@ -47,8 +48,8 @@ public class CreateCategory extends HttpServlet {
                 request.setAttribute("error", error);
             }
         } else {
-            String message = "Preencha o campo corretamente!";
-            request.setAttribute("message", message);
+            msg = "Preencha o campo corretamente!";
+            request.setAttribute("message", msg);
             url = "/category/createCategory.jsp";
         }
 
