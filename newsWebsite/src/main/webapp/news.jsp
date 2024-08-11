@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="includes/header-default.jsp" %>
-<%@ include file="includes/navbar-logged-in.jsp" %>
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:choose>
+    <c:when test="${sessionScope.isLogged == true}">
+        <c:import url="includes/navbar-logged-in.jsp"/>
+    </c:when>
+    <c:otherwise>
+        <c:import url="includes/navbar-logged-out.jsp"/>
+    </c:otherwise>
+</c:choose>
 
 <main class="container">
     <div>
@@ -21,16 +28,26 @@
     </article>
 
     <h3 class="display-6 link-body-emphasis mb-2 mt-4">Comentários</h3>
-    <div class="form-comment">
-        <textarea class="form-control" placeholder="Comente aqui" id="floatingTextarea2" style="height: 100px"></textarea>
-        <button type="submit" class="btn btn-outline-primary">Enviar</button>
-    </div>
-
+    <c:if test="${sessionScope.isLogged == true}">
+        <form action="news" method="post">
+            <input type="hidden" name="newsId" value="${news.id}">
+            <div class="form-comment">
+                <textarea class="form-control" name="comment" minlength="2" required placeholder="Comente aqui" id="floatingTextarea2" style="height: 100px"></textarea>
+                <button type="submit" class="btn btn-outline-primary">Enviar</button>
+            </div>
+        </form>
+    </c:if>
+    <c:if test="${sessionScope.isLogged != true}">
+        <div class="alert alert-warning" role="alert">
+            Você precisa estar logado para comentar.
+        </div>
+    </c:if>
     <c:if test="${not empty listCommentary}">
         <c:forEach var="commentary" items="${listCommentary}">
-            <p><strong>${commentary.user.username}</strong></p>
-            <p>${commentary.text}</p>
-            <hr>
+            <div class="comment">
+                <p class="comment-author"><strong>${commentary.user.username}</strong></p>
+                <p class="comment-text">${commentary.text}</p>
+            </div>
         </c:forEach>
     </c:if>
     <c:if test="${empty listCommentary}">
