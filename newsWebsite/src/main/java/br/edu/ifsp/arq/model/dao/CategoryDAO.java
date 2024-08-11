@@ -6,12 +6,13 @@ import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
 
     private static CategoryDAO instance = null;
-    private static final String fileCSV =  "/data/categoryData.csv";
+    private static final String fileCSV = "/data/categoryData.csv";
 
-    private CategoryDAO() {}
+    private CategoryDAO() {
+    }
 
     public static CategoryDAO getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new CategoryDAO();
         }
         return instance;
@@ -47,12 +48,12 @@ public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
 
         if (category.getId() == null) {
             Long id = 1L;
-            for (var c: list) {
+            for (var c : list) {
                 if (c.getId() >= id) {
                     id = c.getId() + 1;
                 }
 
-                if(c.getCategory().equals(category.getCategory())) {
+                if (c.getCategory().equals(category.getCategory())) {
                     return false;
                 }
             }
@@ -61,7 +62,6 @@ public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
 
         return super.add(category);
     }
-
 
 
     public NewsArticleCategory getByCategory(String category) {
@@ -80,7 +80,7 @@ public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
         var categories = getAll();
         deleteFile();
 
-        for (var c: categories) {
+        for (var c : categories) {
             if (c.getId().equals(categoryEdited.getId())) {
                 c.setCategory(categoryEdited.getCategory());
             }
@@ -94,7 +94,7 @@ public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
         var categories = getAll();
         deleteFile();
 
-        for (var c: categories) {
+        for (var c : categories) {
             if (!c.getId().equals(category.getId())) {
                 add(c);
             }
@@ -126,7 +126,7 @@ public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
     public boolean update(NewsArticleCategory category) {
         var categories = getAll();
         deleteFile();
-        for (var c: categories) {
+        for (var c : categories) {
             if (c.getId().equals(category.getId())) {
                 c.setCategory(category.getCategory());
             }

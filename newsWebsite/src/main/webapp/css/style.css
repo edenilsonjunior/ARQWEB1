@@ -11,8 +11,8 @@ main {
     margin: 2%
 }
 
-.bk-book {
-    background-image: url("assets/bklivro.png");
+.bk-news {
+    background-image: url("../assets/news-background.jpeg");
     background-size: cover; 
     background-position: center; 
 }

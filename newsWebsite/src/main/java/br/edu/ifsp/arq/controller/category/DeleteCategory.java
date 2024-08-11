@@ -16,7 +16,9 @@ public class DeleteCategory extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
 
-    public DeleteCategory() { super(); }
+    public DeleteCategory() {
+        super();
+    }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +32,7 @@ public class DeleteCategory extends HttpServlet {
 
         var newsList = newsArticleDAO.getNewsArticleCategories(id);
 
-        if(!newsList.isEmpty()) {
+        if (!newsList.isEmpty()) {
             request.setAttribute("error", "Não é possível deletar a categoria pois existem notícias associadas a ela");
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return;
@@ -38,7 +40,7 @@ public class DeleteCategory extends HttpServlet {
 
         var result = categoryDAO.deleteById(id);
 
-        if(!result)
+        if (!result)
             request.setAttribute("error", "Erro ao deletar a categoria");
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

@@ -7,8 +7,11 @@ import java.util.List;
 public abstract class AbstractDAO<T> {
 
     protected abstract String getFilePath();
+
     protected abstract T parse(String[] parts);
+
     protected abstract String toCsv(T entity);
+
     protected abstract Long getId(T entity);
 
 

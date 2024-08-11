@@ -16,14 +16,19 @@ public class UpdateCategory extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
 
-    public UpdateCategory() { super(); }
+    public UpdateCategory() {
+        super();
+    }
 
-
+    /**
+     * Recebe a requisicao atraves do botao em listCategory.jsp
+     * e redireciona para a pagina de atualizacao de categoria
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Long id = Long.parseLong(request.getParameter("id"));
         String url = "/category/updateCategory.jsp";
+        Long id = Long.parseLong(request.getParameter("id"));
 
         var dao = CategoryDAO.getInstance();
         var category = dao.getById(id);
@@ -33,7 +38,11 @@ public class UpdateCategory extends HttpServlet {
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
-    
+
+    /**
+     * Recebe a requisicao atraves do formulario de atualizacao de categoria
+     * e redireciona para a pagina de listagem de categorias
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -44,7 +53,7 @@ public class UpdateCategory extends HttpServlet {
         var dao = CategoryDAO.getInstance();
         var result = dao.update(new NewsArticleCategory(id, category));
 
-        if(!result) {
+        if (!result) {
             String message = "Erro ao atualizar a categoria!";
             request.setAttribute("message", message);
         }

@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
-<c:import url="../includes/header-default.jsp"/>
+<%@ include file="../includes/header-default.jsp" %>
+
 
 	<main class="container">
 
@@ -14,7 +15,7 @@
             <h1 class="my-5 text-center">Criar Categoria</h1>
 
             <div class="container form-container">
-                <form action="../createCategory" method="post">
+                <form action="createCategory" method="post">
                     <div class="mb-3">
                     <label for="category" class="form-label">Nome</label>
                     <input class="form-control" id="category" name="category">

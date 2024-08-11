@@ -1,16 +1,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
 <%@ include file="../includes/header-default.jsp" %>
 
 
+<!-- Verifica se o map está vazio, se sim, redireciona para o servlet de recuperação de categorias -->
 <c:if test="${empty map}">
     <c:redirect url="/retrieveCategory"/>
 </c:if>
 
 
-
+<!-- Navbar -->
 <c:choose>
     <c:when test="${sessionScope.isLogged == true}">
         <c:import url="../includes/navbar-logged-in.jsp"/>
@@ -20,13 +22,22 @@
     </c:otherwise>
 </c:choose>
 
+
 <main class="container">
 
-    <h1 class="text-center mb-4" >Noticias por categoria</h1>
+    <h1 class="text-center mb-4">Noticias por categoria</h1>
 
     <c:if test="${not empty error}">
         <div class="alert alert-danger" role="alert">${error}</div>
     </c:if>
+
+    <!-- Botao para criar categoria-->
+    <c:if test="${sessionScope.isLogged == true}">
+        <div class="d-flex justify-content-start my-3">
+            <a href="createCategory" class="btn btn-primary">Criar categoria</a>
+        </div>
+    </c:if>
+
 
     <c:if test="${not empty map}">
         <c:forEach var="entry" items="${map}">
@@ -39,15 +50,36 @@
                     </div>
                 </c:if>
             </div>
-            <ul>
-                <c:if test="${empty entry.value}">
-                    <li class="text-danger">Nenhuma notícia cadastrada</li>
+
+            <c:if test="${empty entry.value}">
+                <li class="text-danger my-3">Nenhuma notícia cadastrada</li>
+            </c:if>
+
+            <c:set var="counter" value="0"/>
+            <c:forEach var="newsArticle" items="${entry.value}">
+
+                <c:if test="${counter % 4 == 0}">
+                    <div class="row my-3">
                 </c:if>
 
-                <c:forEach var="newsArticle" items="${entry.value}">
-                    <li>${newsArticle.title}</li>
-                </c:forEach>
-            </ul>
+                <div class="col-sm-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">${newsArticle.title}</h5>
+                            <p class="card-text">Autor: ${newsArticle.author} </p>
+                            <p class="card-text">Publicado em: ${newsArticle.publishDate} </p>
+                            <a href="#" class="btn btn-primary">Leia mais</a>
+                        </div>
+                    </div>
+                </div>
+
+                <c:set var="counter" value="${counter + 1}"/>
+
+                <c:if test="${counter % 4 == 0 || counter == fn:length(entry.value)}">
+                    </div>
+                </c:if>
+
+            </c:forEach>
         </c:forEach>
     </c:if>
 
