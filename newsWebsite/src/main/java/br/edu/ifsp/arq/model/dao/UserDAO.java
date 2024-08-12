@@ -14,27 +14,20 @@ import br.edu.ifsp.arq.model.entity.User;
 public class UserDAO {
 
 	private static UserDAO instance;
-	private static String directoryPath = "/data/";
-    private static String fileCSV = directoryPath + "usersData.csv";
+    private static final String BASE_PATH = "/data";
+    private static final String fileCSV =  BASE_PATH + "/usersData.csv";
     
-    private Long counter = 0L;
+    private final Long counter = 0L;
 
-    private UserDAO() {}
+    private UserDAO() {
+
+    }
 
     public static UserDAO getInstance() {
-    	
         if (instance == null) {
             instance = new UserDAO();
-            
-            File directory = new File(directoryPath);
-            if (!directory.exists()) {
-                if (directory.mkdirs()) {
-                    System.out.println("Diretório criado com sucesso: " + directoryPath);
-                } else {
-                    System.out.println("Falha ao criar o diretório: " + directoryPath);
-                }
-            }
         }
+        Utils.createDirectoryIfNotExists(BASE_PATH, fileCSV);
         return instance;
     }
     
@@ -44,7 +37,6 @@ public class UserDAO {
     	
     	try {    
 			FileWriter fw = new FileWriter(f, true);
-			System.out.println(f.getAbsolutePath());
 			PrintWriter pw = new PrintWriter(fw);
 			var id = counter + 1;
 			user.setId(id);
@@ -58,7 +50,7 @@ public class UserDAO {
     
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        
+
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(fileCSV)))) {
             String row;
             while ((row = reader.readLine()) != null) {
@@ -68,7 +60,9 @@ public class UserDAO {
                     String username = parts[1];
                     String email = parts[2];
                     String password = parts[3];
-                    users.add(new User(id, username, email, password));
+                    User user = new User(id, username, email);
+                    user.setPassword(password);
+                    users.add(user);
                 }
             }
             reader.close();            
@@ -93,7 +87,7 @@ public class UserDAO {
     public User getUserByEmail(String email) {
         List<User> users = getUsers();
         for (User u : users) {
-            if (u.getEmail().compareTo(email) == 0) {
+            if (u.getEmail().equals(email)) {
                 return u;
             }
         }        
@@ -109,7 +103,6 @@ public class UserDAO {
         }        
         return null;
     }
-
     
     public void editUser(User userEdited) {
         List<User> users = getUsers();
@@ -135,4 +128,17 @@ public class UserDAO {
             }
         }    
     }
+
+    public boolean validateEmail(String email) {
+        List<User> users = getUsers();
+
+        for (User u : users) {
+            if (u.getEmail().equals(email)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

@@ -1,8 +1,8 @@
 package br.edu.ifsp.arq.model.entity;
 
-import java.io.Serializable;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
-// import at.favre.lib.crypto.bcrypt.BCrypt;
+import java.io.Serializable;
 
 public class User implements Serializable {
 
@@ -13,17 +13,16 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	
-	public User(Long id, String username, String email, String password) {
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-	}
-	
 	public User(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
-		this.password = password;
+		setHashPassword(password);
+	}
+	
+	public User(Long id, String username, String email) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
 	}
 
 	public Long getId() {
@@ -54,8 +53,17 @@ public class User implements Serializable {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String p) {
+		this.password = p;
+	}
+
+	public void setHashPassword(String p) {
+		this.password = BCrypt.withDefaults().hashToString(12, p.toCharArray());
+	}
+
+	public boolean checkPassword(String p) {
+		BCrypt.Result result = BCrypt.verifyer().verify(p.toCharArray(), this.password);
+		return result.verified;
 	}
 	
 	@Override

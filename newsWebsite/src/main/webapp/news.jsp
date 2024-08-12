@@ -1,51 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="includes/header-default.jsp" %>
-<%@ include file="includes/navbar-logged-in.jsp" %>
+         pageEncoding="UTF-8" %>
+<%@ include file="includes/navbar/header-default.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:choose>
+    <c:when test="${sessionScope.isLogged == true}">
+        <c:import url="includes/navbar/navbar-logged-in.jsp"/>
+    </c:when>
+    <c:otherwise>
+        <c:import url="includes/navbar/navbar-logged-out.jsp"/>
+    </c:otherwise>
+</c:choose>
 
-	<main class="container">
+<main class="container">
 
-        <div>
-          <img class="img-news rounded mb-3" src="assets/trump.jpeg" alt="imgnot">
+    <!-- Carrossel de Imagens -->
+    <div id="newsCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+        <div class="carousel-inner bg-dark rounded">
+            <c:forEach var="image" items="${news.images}" varStatus="status">
+                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                    <img class="d-block w-100 img-news rounded" src="${image}" alt="Image ${status.index + 1}"
+                         style="object-fit: contain;">
+                </div>
+            </c:forEach>
         </div>
-      
-        <article class="blog-post">
-            <h2 class="display-4 link-body-emphasis mb-1">New feature</h2>
-            <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
-    
-            <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-            <ul>
-            <li>First list item</li>
-            <li>Second list item with a longer description</li>
-            <li>Third list item to close it out</li>
-            </ul>
-            <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-        </article>
+        <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 
-        <div class="form-comment">
-            <h3 class="display-6 link-body-emphasis mb-2 mt-4">Comentários</h3>
-            <textarea class="form-control" placeholder="Comente aqui" id="floatingTextarea2" style="height: 100px"></textarea>
-            <button type="submit" class="btn btn-secondary my-2">Enviar</button>
-            <hr>
+    <c:if test="${sessionScope.isLogged == true}">
+        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+            <div>
+                <a href="deleteNewsArticle?id=${news.id}" class="btn btn-danger">Excluir </a>
+                <a href="updateNewsArticle?id=${news.id}" class="btn btn-warning">Editar</a>
+            </div>
         </div>
+    </c:if>
 
-        <p><strong>Edcu</strong></p>
-        <p>It has been written to fill the available space and show how a longer. Third list item to close it out</p>
-        <p class="blog-post-meta">December 14, 2020</p>
-        <hr>
+    <article class="blog-post p-4 p-md-5 mb-4 rounded bg-light shadow-sm">
+        <div class="blog-post-header mb-3">
+            <h2 class="display-4 link-body-emphasis mb-1">${news.title}</h2>
+            <p class="blog-post-meta text-muted" style="font-size: 1.2em;">${news.category.category}</p>
+            <p class="blog-post-meta text-muted">${news.publishDate} por <a
+                    class="text-decoration-none">${news.author}</a>
+            </p>
+        </div>
+        <div class="blog-post-body">
+            <p class="lead my-3">${news.text}</p>
+            <p class="lead my-3 text-muted">Fonte: ${news.source}</p>
+        </div>
+    </article>
 
-        <p><strong>Edcu</strong></p>
-        <p>It has been written to fill the available space and show how a longer. Third list item to close it out</p>
-        <p class="blog-post-meta">December 14, 2020</p>
-        <hr>
+    <h3 class="display-6 link-body-emphasis mb-2 mt-4">Comentários</h3>
+    <c:if test="${sessionScope.isLogged == true}">
+        <form action="news" method="post">
+            <input type="hidden" name="newsId" value="${news.id}">
+            <div class="form-comment">
+                <textarea class="form-control" name="comment" minlength="2" required placeholder="Comente aqui"
+                          id="floatingTextarea2" style="height: 100px"></textarea>
+                <button type="submit" class="btn btn-outline-primary">Enviar</button>
+            </div>
+        </form>
+    </c:if>
 
-        <p><strong>Edcu</strong></p>
-        <p>It has been written to fill the available space and show how a longer. Third list item to close it out</p>
-        <p class="blog-post-meta">December 14, 2020</p>
-       
-	</main>
+    <c:if test="${sessionScope.isLogged != true}">
+        <div class="alert alert-warning" role="alert">
+            Você precisa estar logado para comentar.
+        </div>
+    </c:if>
+    <c:if test="${not empty listCommentary}">
+        <c:forEach var="commentary" items="${listCommentary}">
+            <div class="comment">
+                <p class="comment-author"><strong>${commentary.user.username}</strong></p>
+                <p class="comment-text">${commentary.text}</p>
+            </div>
+        </c:forEach>
+    </c:if>
+    <c:if test="${empty listCommentary}">
+        <p>Sem comentários.</p>
+    </c:if>
+</main>
 
-<%@ include file="includes/footer.jsp" %>
-<%@ include file="includes/footer-default.jsp" %>
-
-
+<%@ include file="includes/footer/footer.jsp" %>
+<%@ include file="includes/footer/footer-default.jsp" %>
