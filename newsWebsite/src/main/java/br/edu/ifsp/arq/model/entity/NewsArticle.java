@@ -124,8 +124,13 @@ public class NewsArticle {
 	public String imagesToString() {
 		StringBuilder sb = new StringBuilder();
 
-		for (String img : images) {
-			sb.append(";").append(img);
+		for (int i = 0; i < images.size(); i++) {
+
+			if (i == images.size() - 1) {
+				sb.append(images.get(i));
+			} else {
+				sb.append(images.get(i) + ";");
+			}
 		}
 
 		return sb.toString();

@@ -1,4 +1,4 @@
-package br.edu.ifsp.arq.controller.news;
+package br.edu.ifsp.arq.controller.utils;
 
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;

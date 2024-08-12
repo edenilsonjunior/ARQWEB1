@@ -2,6 +2,7 @@ package br.edu.ifsp.arq.controller.category;
 
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
+import br.edu.ifsp.arq.model.entity.User;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -25,8 +26,18 @@ public class CreateCategory extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/category/createCategory.jsp";
+        Boolean isLogged = (Boolean) request.getSession().getAttribute("isLogged");
+        User user = (User) request.getSession().getAttribute("user");
 
+        if(isLogged == null || !isLogged || user == null) {
+
+
+            request.setAttribute("error", "Usuário não autenticado!");
+            getServletContext().getRequestDispatcher("/retrieveCategory").forward(request, response);
+            return;
+        }
+
+        String url = "/category/createCategory.jsp";
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -35,8 +46,18 @@ public class CreateCategory extends HttpServlet {
             throws ServletException, IOException {
 
         String url = "/retrieveCategory";
+
+        Boolean isLogged = (Boolean) request.getSession().getAttribute("isLogged");
+        User user = (User) request.getSession().getAttribute("user");
+
+        if(isLogged == null || !isLogged || user == null) {
+
+            request.setAttribute("error", "Usuário não autenticado!");
+            getServletContext().getRequestDispatcher(url).forward(request, response);
+            return;
+        }
+
         String category = request.getParameter("category");
-        String msg = " ";
 
         if (category != null && !category.isEmpty()) {
 
@@ -44,12 +65,10 @@ public class CreateCategory extends HttpServlet {
             var result = dao.add(new NewsArticleCategory(category));
 
             if (!result) {
-                String error = "Erro ao adicionar a categoria!";
-                request.setAttribute("error", error);
+                request.setAttribute("error", "Erro ao adicionar a categoria!");
             }
         } else {
-            msg = "Preencha o campo corretamente!";
-            request.setAttribute("message", msg);
+            request.setAttribute("error", "Preencha o campo corretamente!");
             url = "/category/createCategory.jsp";
         }
 

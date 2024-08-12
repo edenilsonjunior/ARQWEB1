@@ -10,6 +10,10 @@
 
 <main class="container">
 
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger" role="alert">${error}</div>
+    </c:if>
+
     <h1 class="my-5 text-center">Criar Notícia</h1>
 
     <div class="container form-container">

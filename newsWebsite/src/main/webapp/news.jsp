@@ -12,9 +12,43 @@
 </c:choose>
 
 <main class="container">
-    <div>
-        <img class="img-news rounded mb-3" src="assets/images/trump.jpeg" alt="imgnot">
+
+
+
+
+    <!-- Carrossel de Imagens -->
+    <div id="newsCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+        <div class="carousel-inner bg-dark rounded">
+            <c:forEach var="image" items="${news.images}" varStatus="status">
+                <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                    <img class="d-block w-100 img-news rounded" src="${image}" alt="Image ${status.index + 1}" style="object-fit: contain;">
+                </div>
+            </c:forEach>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <article class="blog-post p-4 p-md-5 mb-4 rounded bg-light shadow-sm">
         <div class="blog-post-header mb-3">

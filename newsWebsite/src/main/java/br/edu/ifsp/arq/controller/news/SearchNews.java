@@ -5,7 +5,6 @@ import br.edu.ifsp.arq.model.entity.NewsArticle;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -5,8 +5,8 @@
 
 	<main class="container">
 
-		<c:if test="${not empty msg}">
-        	<div class="alert alert-danger" role="alert">${msg}</div>
+		<c:if test="${not empty error}">
+        	<div class="alert alert-danger" role="alert">${error}</div>
     	</c:if>
 
         <div class="container-login pt-1 pb-5 my-5">
@@ -21,7 +21,7 @@
                     <div class="mb-3">
                     <label for="password" class="form-label">Senha</label>
                     <input type="password" class="form-control" id="password" name="password">
-                    </div class="mb-3">
+                    </div>
                     <button type="submit" class="btn btn-secondary px-4">Enviar</button>
                 </form>
             </div>

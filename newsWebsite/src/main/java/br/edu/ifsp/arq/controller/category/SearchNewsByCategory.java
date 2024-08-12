@@ -1,33 +1,43 @@
-package br.edu.ifsp.arq.controller.news;
+package br.edu.ifsp.arq.controller.category;
 
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
+import br.edu.ifsp.arq.model.entity.NewsArticle;
 
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-@WebServlet("/deleteNewsArticle")
-public class DeleteNewsArticle extends HttpServlet {
+
+@WebServlet("/searchByCategory")
+public class SearchNewsByCategory extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static NewsArticleDAO newsArticleDAO;
 
-    public DeleteNewsArticle() {
+
+    public SearchNewsByCategory() {
         super();
-        newsArticleDAO = NewsArticleDAO.getInstance();
+
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         Long id = Long.parseLong(request.getParameter("id"));
-        String url = "/index.jsp";
-        var newsArticle = newsArticleDAO.getById(id);
-        newsArticleDAO.deleteNewsArticle(newsArticle);
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+
+        List<NewsArticle> newsList = NewsArticleDAO.getInstance().getNewsArticleCategories(id);
+
+        request.setAttribute("listNews", newsList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/newsSearch.jsp");
+        dispatcher.forward(request, response);
     }
 
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
         doGet(request, response);
     }
 }

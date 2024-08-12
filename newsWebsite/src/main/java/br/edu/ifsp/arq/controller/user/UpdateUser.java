@@ -52,14 +52,14 @@ public class UpdateUser extends HttpServlet {
 
 				session.setAttribute("user", user);
 
-				response.sendRedirect("/profile.jsp");
+				response.sendRedirect("profile.jsp");
 			} else {
-				request.setAttribute("msg", "As senhas não coincidem.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
+				request.setAttribute("error", "As senhas não coincidem.");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
 				dispatcher.forward(request, response);
 			}
 		} else {
-			response.sendRedirect("/login.jsp");
+			response.sendRedirect("login.jsp");
 		}
 	}
 

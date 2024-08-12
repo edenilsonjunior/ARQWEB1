@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class NewsArticleDAO {
+public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
     private static NewsArticleDAO instance;
     private static final String fileCSV =  "/data/newsArticleData.csv";
-
-    private final Long counter = 0L;
 
     NewsArticleDAO() {}
 
@@ -24,80 +22,63 @@ public class NewsArticleDAO {
         return instance;
     }
 
-    public void addNewsArticle(NewsArticle newsArticle) {
 
-        var f = new File(fileCSV);
+    @Override
+    public boolean add(NewsArticle newsArticle) {
+        var list = getAll();
 
-        try {
-            FileWriter fw = new FileWriter(f, true);
-            System.out.println(f.getAbsolutePath());
-            PrintWriter pw = new PrintWriter(fw);
-            var id = counter + 1;
-            newsArticle.setId(id);
-            pw.println(newsArticle);
-            pw.close();
-            fw.close();
-        }  catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<NewsArticle> getNewsArticle() {
-        List<NewsArticle> newsArticleList = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(fileCSV)))) {
-            String row;
-            while ((row = reader.readLine()) != null) {
-                String[] parts = row.split(";");
-                if (parts.length == 10) {
-                    Long id = Long.parseLong(parts[0]);
-                    String title = parts[1];
-                    String author = parts[2];
-                    String publishDate = parts[3];
-                    String source = parts[4];
-                    String summary = parts[5];
-                    String text = parts[6];
-                    Long category = Long.parseLong(parts[7]);
-                    NewsArticleCategory newsArticleCategory = getCategoryById(category);
-                    List<String> images = new ArrayList<>();
-                    images.add(0,parts[8]);
-                    images.add(1,parts[9]);
-                    List<Commentary> comments = getCommentsById(id);
-                    NewsArticle news = new NewsArticle(id, title, author, publishDate, source, summary, text, newsArticleCategory, images, comments);
-                    newsArticleList.add(news);
+        if (newsArticle.getId() == null) {
+            Long id = 1L;
+            for (var na : list) {
+                if (na.getId() >= id) {
+                    id = na.getId() + 1;
                 }
             }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            newsArticle.setId(id);
         }
-        return newsArticleList;
+
+        return super.add(newsArticle);
     }
 
-    private void deleteFile() {
-        try {
-            FileWriter fw = new FileWriter(fileCSV, false);
-            PrintWriter pw = new PrintWriter(fw);
-            pw.print("");
-            pw.close();
-            fw.close();
-        }  catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    @Override
+    protected String getFilePath() {
+        return fileCSV;
     }
 
-    public NewsArticle getNewsArticleById(Long id) {
-        List<NewsArticle> newsArticleList = getNewsArticle();
-        for (NewsArticle n : newsArticleList) {
-            if (Objects.equals(n.getId(), id)) {
-                return n;
-            }
-        }
-        return null;
+    @Override
+    protected NewsArticle parse(String[] parts) {
+        Long id = Long.parseLong(parts[0]);
+        String title = parts[1];
+        String author = parts[2];
+        String publishDate = parts[3];
+        String source = parts[4];
+        String summary = parts[5];
+        String text = parts[6];
+        Long category = Long.parseLong(parts[7]);
+        NewsArticleCategory newsArticleCategory = getCategoryById(category);
+        List<String> images = new ArrayList<>();
+        images.add(0,parts[8]);
+        images.add(1,parts[9]);
+        List<Commentary> comments = getCommentsById(id);
+        NewsArticle news = new NewsArticle(id, title, author, publishDate, source, summary, text, newsArticleCategory, images, comments);
+
+        return news;
     }
+
+    @Override
+    protected String toCsv(NewsArticle entity) {
+        return entity.toString();
+    }
+
+    @Override
+    protected Long getId(NewsArticle entity) {
+        return entity.getId();
+    }
+
 
     public void editNewsArticle(NewsArticle newsEdited) {
-        List<NewsArticle> newsArticleList = getNewsArticle();
+        List<NewsArticle> newsArticleList = getAll();
         deleteFile();
 
         for (NewsArticle n: newsArticleList) {
@@ -111,23 +92,24 @@ public class NewsArticleDAO {
                 n.addImage(0 ,String.valueOf(newsArticleList.get(0)));
                 n.addImage(1 ,String.valueOf(newsArticleList.get(1)));
             }
-            addNewsArticle(n);
+            add(n);
         }
     }
 
+
     public void deleteNewsArticle(NewsArticle newsToDelete) {
-        List<NewsArticle> newsArticleList = getNewsArticle();
+        List<NewsArticle> newsArticleList = getAll();
         deleteFile();
 
         for (NewsArticle n : newsArticleList) {
-            if (n.getId() != newsToDelete.getId()) {
-                addNewsArticle(n);
-            }
+            if (!n.getId().equals(newsToDelete.getId()))
+                add(n);
         }
     }
 
+
     public List<NewsArticle> getNewsArticleSearched(String search) {
-        List<NewsArticle> allArticles = getNewsArticle();
+        List<NewsArticle> allArticles = getAll();
         List<NewsArticle> searchedArticles = new ArrayList<>();
 
         for (NewsArticle article : allArticles) {
@@ -144,7 +126,7 @@ public class NewsArticleDAO {
     }
 
     public List<NewsArticle> getNewsArticleCategories(Long categoryId) {
-        List<NewsArticle> allArticles = getNewsArticle();
+        List<NewsArticle> allArticles = getAll();
         List<NewsArticle> filteredArticles = new ArrayList<>();
 
         for (NewsArticle article : allArticles) {
@@ -156,15 +138,12 @@ public class NewsArticleDAO {
         return filteredArticles;
     }
 
-    public void addComentary(Commentary commentary, NewsArticle newsArticle) {
-        var comment = CommentaryDAO.getInstance();
-        comment.addCommentary(commentary, newsArticle.getId());
-    }
 
     private List<Commentary> getCommentsById(Long id) {
         var comment = CommentaryDAO.getInstance();
         return comment.getCommentsById(id);
     }
+
 
     private NewsArticleCategory getCategoryById(Long id) {
         var category = CategoryDAO.getInstance();

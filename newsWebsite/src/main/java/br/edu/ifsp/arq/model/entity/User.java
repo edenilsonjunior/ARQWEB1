@@ -63,7 +63,6 @@ public class User implements Serializable {
 
 	public boolean checkPassword(String p) {
 		BCrypt.Result result = BCrypt.verifyer().verify(p.toCharArray(), this.password);
-		System.out.println(result.verified);
 		return result.verified;
 	}
 	

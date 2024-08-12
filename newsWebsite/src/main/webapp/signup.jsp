@@ -5,8 +5,8 @@
 
 	<main class="container">
 
-		<c:if test="${not empty msg}">
-	        <div class="alert alert-danger" role="alert">${msg}</div>
+		<c:if test="${not empty error}">
+	        <div class="alert alert-danger" role="alert">${error}</div>
 	    </c:if>
 
         <div class="container-login pt-1 pb-5 my-5">

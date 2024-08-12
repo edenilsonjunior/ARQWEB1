@@ -29,7 +29,7 @@ public class UpdateNewsArticle extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         String url = "/news/updateNewsArticle.jsp";
-        request.setAttribute("newsArticle", newsArticleDAO.getNewsArticleById(id));
+        request.setAttribute("newsArticle", newsArticleDAO.getById(id));
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -54,7 +54,6 @@ public class UpdateNewsArticle extends HttpServlet {
             newsArticleDAO.editNewsArticle(newsArticle);
 
         } catch (Exception e) {
-            System.out.println("Error creating news article: " + e.getMessage());
             url = "/news/updateNewsArticle.jsp";
         }
         

@@ -7,8 +7,8 @@
 
 <main class="container">
 
-	<c:if test="${not empty msg }">
-		<div class="alert alert-danger" role="alert">${msg}</div>
+	<c:if test="${not empty error }">
+		<div class="alert alert-danger" role="alert">${error}</div>
 	</c:if>
 
 	<h1>Editar categoria</h1>

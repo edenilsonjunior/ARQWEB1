@@ -16,12 +16,12 @@
 <main class="container">
     <c:if test="${not empty listNews}">
         <c:forEach var="news" items="${listNews}">
-            <div class="bk-book p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-tertiary">
+            <div class="p-4 p-md-5 mb-4 rounded border text-body-emphasis bg-body-tertiary">
                 <div class="col-lg-6 px-0">
                     <h1 class="display-4 fst-italic">${news.title}</h1>
-                    <p class="lead my-3">${news.text}</p>
+                    <p class="lead my-3">${news.summary}</p>
+                    <p class="lead my-3">Autor: ${news.author}</p>
                     <p class="lead mb-0"><a href="news?id=${news.id}" class="fw-bold">Continue reading...</a></p>
-                    <small>${news.author}</small>
                 </div>
             </div>
         </c:forEach>

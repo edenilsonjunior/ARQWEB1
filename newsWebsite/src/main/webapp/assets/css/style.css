@@ -12,15 +12,15 @@ main {
 }
 
 .bk-book {
-    background-image: url("assets/bklivro.png");
+    background-image: url("../images/bklivro.png");
     background-size: cover; 
     background-position: center; 
 }
 
 .bk-news {
-    background-image: url("../images/news-background.jpeg");
+    background-image: url("../images/news-background.jpg");
     background-size: cover; 
-    background-position: center; 
+    background-position: center;
 }
 
 

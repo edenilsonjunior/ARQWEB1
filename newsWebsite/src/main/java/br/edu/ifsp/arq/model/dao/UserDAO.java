@@ -33,7 +33,6 @@ public class UserDAO {
     	
     	try {    
 			FileWriter fw = new FileWriter(f, true);
-			System.out.println(f.getAbsolutePath());
 			PrintWriter pw = new PrintWriter(fw);
 			var id = counter + 1;
 			user.setId(id);

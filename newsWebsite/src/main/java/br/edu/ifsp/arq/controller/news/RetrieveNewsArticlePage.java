@@ -36,7 +36,8 @@ public class RetrieveNewsArticlePage extends HttpServlet {
         try {
 
             Long id = Long.parseLong(request.getParameter("id"));
-            NewsArticle news = NewsArticleDAO.getInstance().getNewsArticleById(id);
+            NewsArticle news = NewsArticleDAO.getInstance().getById(id);
+
             request.setAttribute("news", news);
 
 
@@ -60,7 +61,8 @@ public class RetrieveNewsArticlePage extends HttpServlet {
             if (user != null) {
                 if (comment != null && !comment.isEmpty()) {
                     Commentary commentary = new Commentary(newsId, user, comment);
-                    CommentaryDAO.getInstance().addCommentary(commentary, newsId);
+                    commentary.setId(newsId);
+                    CommentaryDAO.getInstance().add(commentary);
                     response.sendRedirect("news?id=" + newsId);
                 }
             }

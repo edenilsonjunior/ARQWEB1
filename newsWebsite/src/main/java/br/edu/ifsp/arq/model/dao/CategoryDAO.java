@@ -102,17 +102,6 @@ public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
     }
 
 
-    public NewsArticleCategory getById(Long id) {
-
-        var categories = getAll();
-
-        return categories.stream()
-                .filter(c -> c.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
-
-
     public boolean deleteById(Long id) {
         var category = getById(id);
         if (category != null) {

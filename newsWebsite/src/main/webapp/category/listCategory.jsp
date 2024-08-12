@@ -6,12 +6,6 @@
 <%@ include file="../includes/navbar/header-default.jsp" %>
 
 
-<!-- Verifica se o map está vazio, se sim, redireciona para o servlet de recuperação de categorias -->
-<c:if test="${empty map}">
-    <c:redirect url="/retrieveCategory"/>
-</c:if>
-
-
 <!-- Navbar -->
 <c:choose>
     <c:when test="${sessionScope.isLogged == true}">
@@ -68,7 +62,7 @@
                             <h5 class="card-title">${newsArticle.title}</h5>
                             <p class="card-text">Autor: ${newsArticle.author} </p>
                             <p class="card-text">Publicado em: ${newsArticle.publishDate} </p>
-                            <a href="#" class="btn btn-primary">Leia mais</a>
+                            <a href="news?id=${newsArticle.id}" class="btn btn-primary">Leia mais</a>
                         </div>
                     </div>
                 </div>

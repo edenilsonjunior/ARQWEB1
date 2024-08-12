@@ -2,6 +2,7 @@ package br.edu.ifsp.arq.controller.category;
 
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
+import br.edu.ifsp.arq.model.entity.User;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -27,8 +28,29 @@ public class UpdateCategory extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Boolean isLogged = (Boolean) request.getSession().getAttribute("isLogged");
+        User user = (User) request.getSession().getAttribute("user");
+
+        if(isLogged == null || !isLogged || user == null) {
+
+            request.setAttribute("error", "Usuário não autenticado!");
+            getServletContext().getRequestDispatcher("/retrieveCategory").forward(request, response);
+            return;
+        }
+
+
         String url = "/category/updateCategory.jsp";
-        Long id = Long.parseLong(request.getParameter("id"));
+
+
+        Long id = null;
+
+        try {
+            id = Long.parseLong(request.getParameter("id"));
+        } catch (NumberFormatException ex) {
+            request.setAttribute("error", "Erro ao atualizar a categoria");
+            getServletContext().getRequestDispatcher("retrieveCategory").forward(request, response);
+        }
+
 
         var dao = CategoryDAO.getInstance();
         var category = dao.getById(id);
@@ -46,6 +68,16 @@ public class UpdateCategory extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Boolean isLogged = (Boolean) request.getSession().getAttribute("isLogged");
+        User user = (User) request.getSession().getAttribute("user");
+
+        if(isLogged == null || !isLogged || user == null) {
+
+            request.setAttribute("error", "Usuário não autenticado!");
+            getServletContext().getRequestDispatcher("/retrieveCategory").forward(request, response);
+            return;
+        }
+
         String url = "/retrieveCategory";
         Long id = Long.parseLong(request.getParameter("id"));
         String category = request.getParameter("categoryName");
@@ -54,8 +86,7 @@ public class UpdateCategory extends HttpServlet {
         var result = dao.update(new NewsArticleCategory(id, category));
 
         if (!result) {
-            String message = "Erro ao atualizar a categoria!";
-            request.setAttribute("message", message);
+            request.setAttribute("error", "Erro ao atualizar a categoria!");
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
