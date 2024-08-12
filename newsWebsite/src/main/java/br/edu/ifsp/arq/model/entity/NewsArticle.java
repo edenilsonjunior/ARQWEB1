@@ -121,6 +121,12 @@ public class NewsArticle {
 		return comments;
 	}
 
+	public void setImages(List<String> images) {
+		this.images.clear();
+		this.images.addAll(images);
+	}
+
+
 	public String imagesToString() {
 		StringBuilder sb = new StringBuilder();
 

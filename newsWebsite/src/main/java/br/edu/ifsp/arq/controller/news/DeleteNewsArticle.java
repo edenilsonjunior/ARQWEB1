@@ -16,11 +16,9 @@ import java.util.List;
 @WebServlet("/deleteNewsArticle")
 public class DeleteNewsArticle extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static CommentaryDAO commentaryDAO;
 
     public DeleteNewsArticle() {
         super();
-        commentaryDAO = CommentaryDAO.getInstance();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,14 +34,23 @@ public class DeleteNewsArticle extends HttpServlet {
 
         Long id = null;
         try {
-            id = Long.parseLong(request.getParameter("newsId"));
+            id = Long.parseLong(request.getParameter("id"));
         } catch (NumberFormatException ex) {
             request.setAttribute("error", "Erro ao deletar a notícia");
             getServletContext().getRequestDispatcher("/retrieveNewsArticle").forward(request, response);
+            return;
         }
 
         String url = "/index.jsp";
-        commentaryDAO.deleteCommentaryByNewsId(id);
+
+        var newsDao = NewsArticleDAO.getInstance();
+        var commentaryDao = CommentaryDAO.getInstance();
+
+        commentaryDao.deleteCommentaryByNewsId(id);
+
+        var article = newsDao.getById(id);
+        newsDao.deleteNewsArticle(article);
+
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 

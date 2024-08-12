@@ -46,13 +46,18 @@ public class UpdateNewsArticle extends HttpServlet {
             getServletContext().getRequestDispatcher("/retrieveNewsArticle").forward(request, response);
         }
 
-        String url = "/news/updateNewsArticle.jsp";
+        String url = "/updateNewsArticle.jsp";
         request.setAttribute("newsArticle", newsArticleDAO.getById(id));
+        request.setAttribute("categoryList", categoryDAO.getAll());
+        request.setAttribute("isLoaded", true);
+
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String url = "/index.jsp";
+        Long id = Long.parseLong(request.getParameter("id"));
         String title = request.getParameter("title");
         String author = request.getParameter("author");
         String publishDate = request.getParameter("publishDate");
@@ -69,10 +74,12 @@ public class UpdateNewsArticle extends HttpServlet {
             imageList.add(image1);
             imageList.add(image2);
             NewsArticle newsArticle = new NewsArticle(title, author, publishDate, source, summary, text, newsArticleCategory, imageList);
+            newsArticle.setId(id);
+
             newsArticleDAO.editNewsArticle(newsArticle);
 
         } catch (Exception e) {
-            url = "/news/updateNewsArticle.jsp";
+            url = "/updateNewsArticle.jsp";
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

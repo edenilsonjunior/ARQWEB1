@@ -21,7 +21,7 @@
                     <h1 class="display-4 fst-italic">${news.title}</h1>
                     <p class="lead my-3">${news.summary}</p>
                     <p class="lead my-3">Autor: ${news.author}</p>
-                    <p class="lead mb-0"><a href="news?id=${news.id}" class="fw-bold">Continue reading...</a></p>
+                    <p class="lead mb-0"><a href="news?id=${news.id}" class="fw-bold">Continue lendo...</a></p>
                 </div>
             </div>
         </c:forEach>

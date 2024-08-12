@@ -91,8 +91,8 @@ public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
                 n.setSource(newsEdited.getSource());
                 n.setSummary(newsEdited.getSummary());
                 n.setText(newsEdited.getText());
-                n.addImage(0 ,String.valueOf(newsArticleList.get(0)));
-                n.addImage(1 ,String.valueOf(newsArticleList.get(1)));
+                n.getImages().clear();
+                n.setImages(newsEdited.getImages());
             }
             add(n);
         }
