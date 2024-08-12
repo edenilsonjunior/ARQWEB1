@@ -4,6 +4,10 @@
 <%@ include file="includes/navbar/header-default.jsp" %>
 <%@ include file="includes/navbar/navbar-logged-in.jsp" %>
 
+<c:if test="${sessionScope.isLogged == false}">
+    <c:redirect url="errors/401.jsp"/>
+</c:if>
+
 <main class="container">
 
     <h1 class="my-5 text-center">${user.username}</h1>

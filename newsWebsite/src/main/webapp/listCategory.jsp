@@ -3,16 +3,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
-<%@ include file="../includes/navbar/header-default.jsp" %>
+<%@ include file="includes/navbar/header-default.jsp" %>
 
 
 <!-- Navbar -->
 <c:choose>
     <c:when test="${sessionScope.isLogged == true}">
-        <c:import url="../includes/navbar/navbar-logged-in.jsp"/>
+        <c:import url="includes/navbar/navbar-logged-in.jsp"/>
     </c:when>
     <c:otherwise>
-        <c:import url="../includes/navbar/navbar-logged-out.jsp"/>
+        <c:import url="includes/navbar/navbar-logged-out.jsp"/>
     </c:otherwise>
 </c:choose>
 
@@ -79,5 +79,5 @@
 
 </main>
 
-<c:import url="../includes/footer/footer.jsp"/>
-<c:import url="../includes/footer/footer-default.jsp"/>
+<c:import url="includes/footer/footer.jsp"/>
+<c:import url="includes/footer/footer-default.jsp"/>

@@ -30,8 +30,7 @@ public class DeleteCategory extends HttpServlet {
 
         if(isLogged == null || !isLogged || user == null) {
 
-            request.setAttribute("error", "Usuário não autenticado!");
-            getServletContext().getRequestDispatcher("/retrieveCategory").forward(request, response);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esta página.");
             return;
         }
 

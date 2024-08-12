@@ -31,13 +31,11 @@ public class CreateCategory extends HttpServlet {
 
         if(isLogged == null || !isLogged || user == null) {
 
-
-            request.setAttribute("error", "Usuário não autenticado!");
-            getServletContext().getRequestDispatcher("/retrieveCategory").forward(request, response);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esta página.");
             return;
         }
 
-        String url = "/category/createCategory.jsp";
+        String url = "/createCategory.jsp";
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -69,7 +67,7 @@ public class CreateCategory extends HttpServlet {
             }
         } else {
             request.setAttribute("error", "Preencha o campo corretamente!");
-            url = "/category/createCategory.jsp";
+            url = "/createCategory.jsp";
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

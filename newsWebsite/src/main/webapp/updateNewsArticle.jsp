@@ -4,6 +4,11 @@
 <%@ include file="includes/navbar/header-default.jsp" %>
 <%@ include file="includes/navbar/navbar-logged-in.jsp" %>
 
+<c:if test="${sessionScope.isLogged == false}">
+    <c:redirect url="errors/401.jsp"/>
+</c:if>
+
+
 <c:if test="${empty categoryList}">
     <c:redirect url="/utilServlet"/>
 </c:if>
@@ -11,7 +16,7 @@
 <main class="container">
 
     <div class="container form-container">
-        <form action="createNewsArticle" method="post">
+        <form action="updateNewsArticle" method="post">
             <div class="mb-3">
                 <label for="title" class="form-label">Título</label>
                 <input type="text" class="form-control" id="title" name="title" required>

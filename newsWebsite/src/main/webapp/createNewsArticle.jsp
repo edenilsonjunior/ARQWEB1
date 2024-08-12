@@ -8,6 +8,12 @@
     <c:redirect url="/utilServlet"/>
 </c:if>
 
+<c:if test="${sessionScope.isLogged == false}">
+    <c:redirect url="errors/401.jsp"/>
+</c:if>
+
+
+
 <main class="container">
 
     <c:if test="${not empty error}">

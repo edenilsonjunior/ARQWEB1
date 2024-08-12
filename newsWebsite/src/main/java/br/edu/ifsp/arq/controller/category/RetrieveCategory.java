@@ -25,7 +25,7 @@ public class RetrieveCategory extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/category/listCategory.jsp";
+        String url = "/listCategory.jsp";
 
         var categoryDAO = CategoryDAO.getInstance();
         var newsArticleDAO = NewsArticleDAO.getInstance();

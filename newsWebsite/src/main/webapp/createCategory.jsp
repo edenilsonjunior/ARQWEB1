@@ -2,8 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
-<%@ include file="../includes/navbar/header-default.jsp" %>
+<%@ include file="includes/navbar/header-default.jsp" %>
 
+
+<c:if test="${sessionScope.isLogged == false}">
+    <c:redirect url="errors/401.jsp"/>
+</c:if>
 
 	<main class="container">
 
@@ -28,5 +32,5 @@
     </main>
 
 
-<c:import url="../includes/footer/footer.jsp"/>
-<c:import url="../includes/footer/footer-default.jsp"/>
+<c:import url="includes/footer/footer.jsp"/>
+<c:import url="includes/footer/footer-default.jsp"/>

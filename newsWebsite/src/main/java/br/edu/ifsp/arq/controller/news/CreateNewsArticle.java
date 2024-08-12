@@ -4,6 +4,7 @@ import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
+import br.edu.ifsp.arq.model.entity.User;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -29,7 +30,19 @@ public class CreateNewsArticle extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+
+        Boolean isLogged = (Boolean) request.getSession().getAttribute("isLogged");
+        User user = (User) request.getSession().getAttribute("user");
+
+        if(isLogged == null || !isLogged || user == null) {
+
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esta página.");
+            return;
+        }
+
+        String url = "/createNewsArticle.jsp";
+
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
