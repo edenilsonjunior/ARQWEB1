@@ -70,7 +70,15 @@
                 <button type="submit" class="btn btn-outline-primary">Enviar</button>
             </div>
         </form>
+
+        <div class="d-flex justify-content-between align-items-center border border-secondary rounded px-2 py-2">
+                <div>
+                    <a href="deleteNewsArticle?id=${news.id}" class="btn btn-danger">Excluir</a>
+                    <a href="updateNewsArticle?id=${news.id}" class="btn btn-warning">Editar</a>
+                </div>
+        </div>
     </c:if>
+
     <c:if test="${sessionScope.isLogged != true}">
         <div class="alert alert-warning" role="alert">
             Você precisa estar logado para comentar.

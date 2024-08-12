@@ -70,12 +70,12 @@ public class CommentaryDAO extends AbstractDAO<Commentary> {
         }
     }
 
-    public void deleteCommentary(Commentary commentToDelete) {
+    public void deleteCommentaryByNewsId(Long newsId) {
         List<Commentary> commentaryList = getAll();
         deleteFile();
 
         for (Commentary c : commentaryList) {
-            if (c.getId().equals(commentToDelete.getId()) && c.getUser().getId().equals(commentToDelete.getUser().getId())) {
+            if (!c.getId().equals(newsId)) {
                 add(c);
             }
         }

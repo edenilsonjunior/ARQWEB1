@@ -1,6 +1,8 @@
 package br.edu.ifsp.arq.controller.news;
 
+import br.edu.ifsp.arq.model.dao.CommentaryDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
+import br.edu.ifsp.arq.model.entity.Commentary;
 import br.edu.ifsp.arq.model.entity.User;
 
 import javax.servlet.ServletException;
@@ -9,15 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/deleteNewsArticle")
 public class DeleteNewsArticle extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static NewsArticleDAO newsArticleDAO;
+    private static CommentaryDAO commentaryDAO;
 
     public DeleteNewsArticle() {
         super();
-        newsArticleDAO = NewsArticleDAO.getInstance();
+        commentaryDAO = CommentaryDAO.getInstance();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,15 +36,14 @@ public class DeleteNewsArticle extends HttpServlet {
 
         Long id = null;
         try {
-            id = Long.parseLong(request.getParameter("id"));
+            id = Long.parseLong(request.getParameter("newsId"));
         } catch (NumberFormatException ex) {
             request.setAttribute("error", "Erro ao deletar a notícia");
             getServletContext().getRequestDispatcher("/retrieveNewsArticle").forward(request, response);
         }
 
         String url = "/index.jsp";
-        var newsArticle = newsArticleDAO.getById(id);
-        newsArticleDAO.deleteNewsArticle(newsArticle);
+        commentaryDAO.deleteCommentaryByNewsId(id);
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
