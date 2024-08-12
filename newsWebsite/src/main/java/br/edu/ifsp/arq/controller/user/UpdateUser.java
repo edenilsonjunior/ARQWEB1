@@ -23,13 +23,12 @@ public class UpdateUser extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
 		if (user != null) {
 			request.setAttribute("user", user);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			response.sendRedirect("/login.jsp");
@@ -40,6 +39,7 @@ public class UpdateUser extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
+		String url = "/profile.jsp";
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
@@ -53,15 +53,14 @@ public class UpdateUser extends HttpServlet {
 
 				session.setAttribute("user", user);
 
-				response.sendRedirect("profile.jsp");
 			} else {
-				request.setAttribute("error", "As senhas não coincidem.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
-				dispatcher.forward(request, response);
+				request.setAttribute("msg", "As senhas não coincidem.");
 			}
 		} else {
-			response.sendRedirect("login.jsp");
+			url = "/login.jsp";
 		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 	}
 
 }

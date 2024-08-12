@@ -3,16 +3,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
-<%@ include file="includes/navbar/header-default.jsp" %>
+<%@ include file="../includes/navbar/header-default.jsp" %>
+
 
 
 <!-- Navbar -->
 <c:choose>
     <c:when test="${sessionScope.isLogged == true}">
-        <c:import url="includes/navbar/navbar-logged-in.jsp"/>
+        <c:import url="../includes/navbar/navbar-logged-in.jsp"/>
     </c:when>
     <c:otherwise>
-        <c:import url="includes/navbar/navbar-logged-out.jsp"/>
+        <c:import url="../includes/navbar/navbar-logged-out.jsp"/>
     </c:otherwise>
 </c:choose>
 
@@ -62,7 +63,7 @@
                             <h5 class="card-title">${newsArticle.title}</h5>
                             <p class="card-text">Autor: ${newsArticle.author} </p>
                             <p class="card-text">Publicado em: ${newsArticle.publishDate} </p>
-                            <a href="news?id=${newsArticle.id}" class="btn btn-primary">Leia mais</a>
+                            <a href="#" class="btn btn-primary">Leia mais</a>
                         </div>
                     </div>
                 </div>
@@ -79,5 +80,5 @@
 
 </main>
 
-<c:import url="includes/footer/footer.jsp"/>
-<c:import url="includes/footer/footer-default.jsp"/>
+<c:import url="../includes/footer/footer.jsp"/>
+<c:import url="../includes/footer/footer-default.jsp"/>

@@ -4,7 +4,6 @@ import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
-import br.edu.ifsp.arq.model.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,26 +27,9 @@ public class UpdateNewsArticle extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        Boolean isLogged = (Boolean) request.getSession().getAttribute("isLogged");
-        User user = (User) request.getSession().getAttribute("user");
-
-        if (isLogged == null || !isLogged || user == null) {
-
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esta página.");
-            return;
-        }
-
-        Long id = null;
-        try {
-            id = Long.parseLong(request.getParameter("id"));
-        } catch (NumberFormatException ex) {
-            request.setAttribute("error", "Erro ao atualizar a notícia");
-            getServletContext().getRequestDispatcher("/retrieveNewsArticle").forward(request, response);
-        }
-
+        Long id = Long.parseLong(request.getParameter("id"));
         String url = "/news/updateNewsArticle.jsp";
-        request.setAttribute("newsArticle", newsArticleDAO.getById(id));
+        request.setAttribute("newsArticle", newsArticleDAO.getNewsArticleById(id));
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -72,9 +54,10 @@ public class UpdateNewsArticle extends HttpServlet {
             newsArticleDAO.editNewsArticle(newsArticle);
 
         } catch (Exception e) {
-            url = "/news/updateNewsArticle.jsp";
+            request.setAttribute("error", "Erro ao atualizar a notícia");
+            url = "/updateNewsArticle.jsp";
         }
-
+        
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 }
