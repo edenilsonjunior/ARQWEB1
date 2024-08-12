@@ -9,10 +9,10 @@
         <div class="alert alert-danger" role="alert">${error}</div>
     </c:if>
 
-    <div class="container-login pt-1 pb-5 my-5">
+    <div class="d-flex flex-column justify-content-center align-items-center pt-1 pb-5 my-5 border">
         <h1 class="my-5 text-center">Login</h1>
 
-        <div class="container form-container">
+        <div class=" col-md-6 col-lg-4">
             <form action="loginUser" method="post">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
