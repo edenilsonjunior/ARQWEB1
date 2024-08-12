@@ -22,6 +22,8 @@
 
 <main class="container">
 
+
+    <%-- Boas-vindas ao site --%>
     <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary bk-news">
         <div class="col-lg-6 px-0 bg-dark text-light rounded px-2 py-2">
             <h1 class="display-4 fst-italic">Bem-vindo ao IFNews!</h1>
@@ -31,10 +33,12 @@
         </div>
     </div>
 
+
+    <%--Exibindo as duas noticias mais recentes--%>
     <c:choose>
         <c:when test="${not empty newsList}">
             <div class="row mb-2">
-                <c:forEach var="news" items="${newsList}">
+                <c:forEach var="news" items="${newsList}" begin="0" end="1">
                     <div class="col-md-6">
                         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div class="col p-4 d-flex flex-column position-static">
@@ -69,7 +73,7 @@
     </c:choose>
 
 
-    <div class="row g-5">
+    <div class="row">
 
         <div class="col-md-8">
             <h3 class="pb-4 mb-4 fst-italic border-bottom">

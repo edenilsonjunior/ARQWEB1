@@ -1,17 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="includes/navbar/header-default.jsp" %>
 <%@ include file="includes/navbar/navbar-logged-in.jsp" %>
-
-<c:if test="${empty categoryList}">
-    <c:redirect url="/utilServlet"/>
-</c:if>
 
 <c:if test="${sessionScope.isLogged == false}">
     <c:redirect url="errors/401.jsp"/>
 </c:if>
 
+
+<%--o atributo isLoaded é um booleano que indica a passagem pelo /utilServlet--%>
+
+<c:if test="${empty isLoaded}">
+    <c:redirect url="/utilServlet"/>
+</c:if>
+
+
+<c:if test="${empty categoryList}">
+    <c:redirect url="index.jsp"/>
+</c:if>
 
 
 <main class="container">

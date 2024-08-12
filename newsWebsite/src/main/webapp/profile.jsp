@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="includes/navbar/header-default.jsp" %>
 <%@ include file="includes/navbar/navbar-logged-in.jsp" %>
@@ -16,7 +16,8 @@
         <form action="updateUser" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="${user.email}" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="email" name="email" value="${user.email}"
+                       aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Nova Senha</label>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="includes/navbar/header-default.jsp" %>
 <%@ include file="includes/navbar/navbar-logged-in.jsp" %>
@@ -17,6 +17,10 @@
     <c:redirect url="index.jsp"/>
 </c:if>
 
+<c:if test="${empty categoryList}">
+    <c:redirect url="index.jsp"/>
+</c:if>
+
 
 <main class="container">
 
@@ -31,19 +35,23 @@
             </div>
             <div class="mb-3">
                 <label for="author" class="form-label">Autor</label>
-                <input type="text" class="form-control" id="author" name="author" value="${newsArticle.author}" required>
+                <input type="text" class="form-control" id="author" name="author" value="${newsArticle.author}"
+                       required>
             </div>
             <div class="mb-3">
                 <label for="publishDate" class="form-label">Data de Publicação</label>
-                <input type="date" class="form-control" id="publishDate" name="publishDate" value="${newsArticle.publishDate}" required>
+                <input type="date" class="form-control" id="publishDate" name="publishDate"
+                       value="${newsArticle.publishDate}" required>
             </div>
             <div class="mb-3">
                 <label for="source" class="form-label">Fonte</label>
-                <input type="text" class="form-control" id="source" name="source" value="${newsArticle.source}" required>
+                <input type="text" class="form-control" id="source" name="source" value="${newsArticle.source}"
+                       required>
             </div>
             <div class="mb-3">
                 <label for="summary" class="form-label">Resumo</label>
-                <textarea class="form-control" id="summary" name="summary" rows="3" required >${newsArticle.summary}</textarea>
+                <textarea class="form-control" id="summary" name="summary" rows="3"
+                          required>${newsArticle.summary}</textarea>
             </div>
             <div class="mb-3">
                 <label for="text" class="form-label">Texto</label>

@@ -50,8 +50,7 @@ public class CreateCategory extends HttpServlet {
 
         if(isLogged == null || !isLogged || user == null) {
 
-            request.setAttribute("error", "Usuário não autenticado!");
-            getServletContext().getRequestDispatcher(url).forward(request, response);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esta página.");
             return;
         }
 

@@ -14,7 +14,8 @@ import br.edu.ifsp.arq.model.entity.User;
 public class UserDAO {
 
 	private static UserDAO instance;
-    private static final String fileCSV =  "/data/usersData.csv";
+    private static final String BASE_PATH = "/data";
+    private static final String fileCSV =  BASE_PATH + "/usersData.csv";
     
     private final Long counter = 0L;
 
@@ -26,7 +27,7 @@ public class UserDAO {
         if (instance == null) {
             instance = new UserDAO();
         }
-        Utils.createDirectoryIfNotExists("/data", fileCSV);
+        Utils.createDirectoryIfNotExists(BASE_PATH, fileCSV);
         return instance;
     }
     

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CommentaryDAO extends AbstractDAO<Commentary> {
     private static CommentaryDAO instance;
-    private static final String fileCSV = "/data/commentaryData.csv";
+    private static final String fileCSV = BASE_PATH +"/commentaryData.csv";
 
     private CommentaryDAO() {
         super();

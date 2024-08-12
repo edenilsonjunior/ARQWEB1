@@ -1,11 +1,14 @@
 package br.edu.ifsp.arq.model.dao;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 
 public class Utils {
 
     public static void createDirectoryIfNotExists(String basePath, String filePath) {
+
+
 
         File directory = new File(basePath);
         if (!directory.exists())

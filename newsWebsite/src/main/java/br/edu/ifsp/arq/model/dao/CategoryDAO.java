@@ -6,7 +6,7 @@ import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
 
     private static CategoryDAO instance = null;
-    private static final String fileCSV = "/data/categoryData.csv";
+    private static final String fileCSV = BASE_PATH + "/categoryData.csv";
 
     private CategoryDAO() {
         super();

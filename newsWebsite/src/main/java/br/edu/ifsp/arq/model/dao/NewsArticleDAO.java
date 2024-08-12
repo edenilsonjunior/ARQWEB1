@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
     private static NewsArticleDAO instance;
-    private static final String fileCSV =  "/data/newsArticleData.csv";
+    private static final String fileCSV = BASE_PATH + "/newsArticleData.csv";
 
     NewsArticleDAO() {
         super();
@@ -60,8 +60,8 @@ public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
         Long category = Long.parseLong(parts[7]);
         NewsArticleCategory newsArticleCategory = getCategoryById(category);
         List<String> images = new ArrayList<>();
-        images.add(0,parts[8]);
-        images.add(1,parts[9]);
+        images.add(0, parts[8]);
+        images.add(1, parts[9]);
         List<Commentary> comments = getCommentsById(id);
         NewsArticle news = new NewsArticle(id, title, author, publishDate, source, summary, text, newsArticleCategory, images, comments);
 
@@ -83,7 +83,7 @@ public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
         List<NewsArticle> newsArticleList = getAll();
         deleteFile();
 
-        for (NewsArticle n: newsArticleList) {
+        for (NewsArticle n : newsArticleList) {
             if (n.getId().equals(newsEdited.getId())) {
                 n.setAuthor(newsEdited.getAuthor());
                 n.setTitle(newsEdited.getTitle());
