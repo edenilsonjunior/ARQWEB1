@@ -7,6 +7,7 @@ import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
     private static NewsArticleDAO instance;
@@ -114,12 +115,14 @@ public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
         List<NewsArticle> allArticles = getAll();
         List<NewsArticle> searchedArticles = new ArrayList<>();
 
+        search = search.toLowerCase();
+
         for (NewsArticle article : allArticles) {
-            if (article.getTitle().contains(search) ||
-                    article.getAuthor().contains(search) ||
-                    article.getSummary().contains(search) ||
-                    article.getText().contains(search) ||
-                    article.getCategory().getCategory().contains(search)) {
+            if (article.getTitle().toLowerCase().contains(search) ||
+                    article.getAuthor().toLowerCase().contains(search) ||
+                    article.getSummary().toLowerCase().contains(search) ||
+                    article.getText().toLowerCase().contains(search) ||
+                    article.getCategory().getCategory().toLowerCase().contains(search)) {
                 searchedArticles.add(article);
             }
         }

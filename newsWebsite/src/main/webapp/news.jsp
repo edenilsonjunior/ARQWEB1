@@ -33,18 +33,21 @@
         </button>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
+    <c:if test="${sessionScope.isLogged == true}">
+        <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
             <div>
                 <a href="deleteNewsArticle?id=${news.id}" class="btn btn-danger">Excluir </a>
                 <a href="updateNewsArticle?id=${news.id}" class="btn btn-warning">Editar</a>
             </div>
-    </div>
+        </div>
+    </c:if>
 
     <article class="blog-post p-4 p-md-5 mb-4 rounded bg-light shadow-sm">
         <div class="blog-post-header mb-3">
             <h2 class="display-4 link-body-emphasis mb-1">${news.title}</h2>
             <p class="blog-post-meta text-muted" style="font-size: 1.2em;">${news.category.category}</p>
-            <p class="blog-post-meta text-muted">${news.publishDate} por <a class="text-decoration-none">${news.author}</a>
+            <p class="blog-post-meta text-muted">${news.publishDate} por <a
+                    class="text-decoration-none">${news.author}</a>
             </p>
         </div>
         <div class="blog-post-body">

@@ -8,8 +8,6 @@ public class Utils {
 
     public static void createDirectoryIfNotExists(String basePath, String filePath) {
 
-
-
         File directory = new File(basePath);
         if (!directory.exists())
             directory.mkdir();
