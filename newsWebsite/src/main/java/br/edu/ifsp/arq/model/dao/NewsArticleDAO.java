@@ -4,21 +4,23 @@ import br.edu.ifsp.arq.model.entity.Commentary;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 
-import java.io.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
     private static NewsArticleDAO instance;
     private static final String fileCSV =  "/data/newsArticleData.csv";
 
-    NewsArticleDAO() {}
+    NewsArticleDAO() {
+        super();
+    }
 
     public static NewsArticleDAO getInstance() {
         if (instance == null) {
             instance = new NewsArticleDAO();
         }
+        Utils.createDirectoryIfNotExists(BASE_PATH, fileCSV);
         return instance;
     }
 

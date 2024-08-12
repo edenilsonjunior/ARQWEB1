@@ -9,12 +9,14 @@ public class CategoryDAO extends AbstractDAO<NewsArticleCategory> {
     private static final String fileCSV = "/data/categoryData.csv";
 
     private CategoryDAO() {
+        super();
     }
 
     public static CategoryDAO getInstance() {
         if (instance == null) {
             instance = new CategoryDAO();
         }
+        Utils.createDirectoryIfNotExists(BASE_PATH, fileCSV);
         return instance;
     }
 

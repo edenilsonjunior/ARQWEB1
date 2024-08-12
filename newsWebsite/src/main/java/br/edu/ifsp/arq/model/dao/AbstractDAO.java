@@ -6,6 +6,13 @@ import java.util.List;
 
 public abstract class AbstractDAO<T> {
 
+    protected static final String BASE_PATH = "/data";
+
+
+    public AbstractDAO() {
+    }
+
+
     protected abstract String getFilePath();
 
     protected abstract T parse(String[] parts);
@@ -55,4 +62,5 @@ public abstract class AbstractDAO<T> {
                 .findFirst()
                 .orElse(null);
     }
+
 }

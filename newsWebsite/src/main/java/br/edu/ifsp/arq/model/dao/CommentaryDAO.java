@@ -3,7 +3,6 @@ package br.edu.ifsp.arq.model.dao;
 import br.edu.ifsp.arq.model.entity.Commentary;
 import br.edu.ifsp.arq.model.entity.User;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +11,14 @@ public class CommentaryDAO extends AbstractDAO<Commentary> {
     private static final String fileCSV = "/data/commentaryData.csv";
 
     private CommentaryDAO() {
+        super();
     }
 
     public static CommentaryDAO getInstance() {
         if (instance == null) {
             instance = new CommentaryDAO();
         }
+        Utils.createDirectoryIfNotExists(BASE_PATH, fileCSV);
         return instance;
     }
 
