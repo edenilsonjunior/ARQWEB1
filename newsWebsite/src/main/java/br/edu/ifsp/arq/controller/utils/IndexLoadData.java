@@ -2,7 +2,6 @@ package br.edu.ifsp.arq.controller.utils;
 
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
-import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 
 import java.io.IOException;
 import java.util.Comparator;

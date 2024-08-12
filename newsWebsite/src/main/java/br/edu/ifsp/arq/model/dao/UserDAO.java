@@ -18,12 +18,15 @@ public class UserDAO {
     
     private final Long counter = 0L;
 
-    private UserDAO() {}
+    private UserDAO() {
+
+    }
 
     public static UserDAO getInstance() {
         if (instance == null) {
             instance = new UserDAO();
         }
+        Utils.createDirectoryIfNotExists("/data", fileCSV);
         return instance;
     }
     
@@ -135,4 +138,6 @@ public class UserDAO {
         }
         return true;
     }
+
+
 }
