@@ -51,7 +51,7 @@ public class CreateNewsArticle extends HttpServlet {
             newsArticleDAO.addNewsArticle(newsArticle);
 
         } catch (Exception e) {
-            System.out.println("Error creating news article: " + e.getMessage());
+            request.setAttribute("error", "Erro ao criar a notícia");
             url = "/createNewsArticle.jsp";
         }
         

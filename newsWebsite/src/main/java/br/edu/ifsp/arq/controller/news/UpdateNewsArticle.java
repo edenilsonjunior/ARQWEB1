@@ -54,8 +54,8 @@ public class UpdateNewsArticle extends HttpServlet {
             newsArticleDAO.editNewsArticle(newsArticle);
 
         } catch (Exception e) {
-            System.out.println("Error creating news article: " + e.getMessage());
-            url = "/news/updateNewsArticle.jsp";
+            request.setAttribute("error", "Erro ao atualizar a notícia");
+            url = "/updateNewsArticle.jsp";
         }
         
         getServletContext().getRequestDispatcher(url).forward(request, response);

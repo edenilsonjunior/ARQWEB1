@@ -34,19 +34,19 @@ public class LoginUser extends HttpServlet {
 		
 		UserDAO udao = UserDAO.getInstance();
 		User user = udao.getUserByEmail(email);
-		
-		if(user != null) {
-			if(user.checkPassword(password)) {
-				HttpSession session = request.getSession();
-				session.setAttribute("user", user);	
-				session.setAttribute("isLogged", true);	
-				response.sendRedirect("index.jsp");
-			}else {
-				request.setAttribute("msg", "Não foi possível realizar Login, verifique Email e Senha");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
-				dispatcher.forward(request, response);
-			}
-		}	
+
+		if (user != null && user.checkPassword(password)) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
+			session.setAttribute("isLogged", true);
+			response.sendRedirect("index.jsp");
+		} else {
+			String errorMessage = user == null ? "Usuário não encontrado." : "Senha incorreta.";
+			request.setAttribute("msg", "Não foi possível realizar Login, verifique Email e Senha. " + errorMessage);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+			dispatcher.forward(request, response);
+		}
+
 	}
 
 }
