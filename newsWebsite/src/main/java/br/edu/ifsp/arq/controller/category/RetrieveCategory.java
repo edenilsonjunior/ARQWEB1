@@ -21,7 +21,7 @@ public class RetrieveCategory extends HttpServlet {
 
     public RetrieveCategory() { super(); }
 
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -32,14 +32,22 @@ public class RetrieveCategory extends HttpServlet {
 
         var map = new LinkedHashMap<NewsArticleCategory, List<NewsArticle>>();
 
-        for (var category : categoryDAO.getAll()) {
-            map.put(category, newsArticleDAO.getNewsArticleCategories(category.getId()));
-        }
+        var categories = categoryDAO.getAll();
 
-        request.setAttribute("map", map);
+        if (categories.isEmpty()) {
+            request.setAttribute("error", "Não existem categorias cadastradas.");
+        } else {
+            for (var category : categories) {
+                var articles = newsArticleDAO.getNewsArticleCategories(category.getId());
+                map.put(category, articles);
+            }
+
+            request.setAttribute("map", map);
+        }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
+
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

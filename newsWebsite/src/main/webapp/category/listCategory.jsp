@@ -6,11 +6,6 @@
 <%@ include file="../includes/navbar/header-default.jsp" %>
 
 
-<!-- Verifica se o map está vazio, se sim, redireciona para o servlet de recuperação de categorias -->
-<c:if test="${empty map}">
-    <c:redirect url="/retrieveCategory"/>
-</c:if>
-
 
 <!-- Navbar -->
 <c:choose>

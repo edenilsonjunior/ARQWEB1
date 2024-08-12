@@ -15,7 +15,7 @@
                   <a class="nav-link active" aria-current="page" href="index.jsp">Página Inicial</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="retrieveCategory">Categorias</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/retrieveCategory">Categorias</a>
                   </li>
                 <li class="nav-item">
                   <a class="nav-link" href="${pageContext.request.contextPath}/createNewsArticle.jsp">Notícias</a>
