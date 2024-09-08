@@ -1,16 +1,15 @@
-import {loadData} from './global.js';
-import {contextPath} from './global.js';
+import {checkLoginStatus, contextPath} from './global.js';
+
+const navbarContainer = document.getElementById('nav-bar');
+
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    let data = await loadData();
+    let data = await checkLoginStatus();
     navbar(data.isLogged);
 });
 
 const navbar = (isLogged)=> {
-
-    const navbarContainer = document.getElementById('nav-bar');
-    navbarContainer.innerHTML = '';
 
     let content = `
         <div class="container">
@@ -30,7 +29,7 @@ const navbar = (isLogged)=> {
                                     <a class="nav-link" href="${contextPath}/retrieveCategory">Categorias</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${contextPath}/views/about.html">Sobre</a>
+                                    <a class="nav-link" href="${contextPath}/about.html">Sobre</a>
                                 </li>
     `;
 

@@ -25,7 +25,7 @@ const welcome = () => {
             <div class="col-lg-6 px-0 bg-dark text-light rounded px-2 py-2">
                 <h1 class="display-4 fst-italic">Bem-vindo ao IFNews!</h1>
                 <p class="lead my-3">Este sistema foi desenvolvido para oferecer uma plataforma completa e intuitiva para a gestão e visualização de notícias.</p>
-                <p class="lead mb-0"><a href="${contextPath}/views/about.html" class="fw-bold">Continue lendo...</a></p>
+                <p class="lead mb-0"><a href="${contextPath}/about.html" class="fw-bold">Continue lendo...</a></p>
             </div>
         </div> 
     `;
