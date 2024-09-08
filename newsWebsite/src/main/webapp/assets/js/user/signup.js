@@ -1,12 +1,9 @@
 import {contextPath} from '../components/global.js';
 
 const submitSignup = async (event) => {
-
     event.preventDefault();
 
     const formData = new FormData(document.getElementById('signupForm'));
-
-    console.log(formData);
 
     try {
         const response = await fetch(`${contextPath}/signupUser`, {

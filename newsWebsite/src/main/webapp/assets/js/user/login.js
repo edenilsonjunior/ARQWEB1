@@ -5,7 +5,7 @@ const submitLogin = async (event) => {
 
     event.preventDefault();
 
-    const form = document.getElementById('login');
+    const form = document.getElementById('loginForm');
     const formData = new FormData(form);
 
     try {

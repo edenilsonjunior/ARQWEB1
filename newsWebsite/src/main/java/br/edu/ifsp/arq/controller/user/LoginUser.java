@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import com.google.gson.Gson;
 
 
 @WebServlet("/loginUser")
+@MultipartConfig
 public class LoginUser extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final UserDAO USER_DAO = UserDAO.getInstance();
