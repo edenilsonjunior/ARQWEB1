@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     latestNews(data.newsList);
     imageGallery(data.newsList);
     recentPosts(data.newsList);
-    categories(data.newsList);
+    categories(data.categoryList);
 });
 
 const welcome = () => {
@@ -138,7 +138,7 @@ const recentPosts = (newsList) => {
     }
 }
 
-const categories = (newsList) => {
+const categories = (categoryList) => {
 
     let content = `
             <div class="p-4">
@@ -146,27 +146,14 @@ const categories = (newsList) => {
                 <ol class="list-unstyled mb-0">
         `;
 
-    if (newsList.length === 0) {
+    if (categoryList.length === 0) {
         content += '<li>Nenhuma categoria cadastrada</li> </ol></div>';
         categoriesContainer.innerHTML = content;
         return;
     }
 
-    newsList.forEach(news => {
-        content += `
-            <li>
-                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                   href="${contextPath}/news?id=${news.id}">
-                    <img src="${news.images[0]}" alt="${news.title}" class="bd-placeholder-img"
-                         width="100" height="96"
-                         style="object-fit: cover;"/>
-                    <div class="col-lg-8">
-                        <h6 class="mb-0">${news.title}</h6>
-                        <small class="text-body-secondary">${news.publishDate}</small>
-                    </div>
-                </a>
-            </li>
-            `;
+    categoryList.forEach(category => {
+        content += `<li><a href="${contextPath}/searchByCategory?id=${category.id}">${category.category}</a></li>`;
     });
 
     content += '</ol></div>';
