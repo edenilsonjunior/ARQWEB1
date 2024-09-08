@@ -30,7 +30,7 @@ const navbar = (isLogged)=> {
                                     <a class="nav-link" href="${contextPath}/retrieveCategory">Categorias</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${contextPath}/about.jsp">Sobre</a>
+                                    <a class="nav-link" href="${contextPath}/views/about.html">Sobre</a>
                                 </li>
                             </ul>
     `;
@@ -38,7 +38,7 @@ const navbar = (isLogged)=> {
     if (isLogged) {
         content += `
            <li class="nav-item">
-                <a class="nav-link" href="${contextPath}/createNewsArticle.jsp">Cadastrar Noticia</a>
+                <a class="nav-link" href="${contextPath}/views/news/createNewsArticle.html">Cadastrar Noticia</a>
             </li>
         `;
     }
@@ -56,8 +56,8 @@ const navbar = (isLogged)=> {
         content += `
             <ul class="navbar-nav me-right mb-2 mb-lg-0 mx-1 mt-2">
                 <li class="nav-item dropdown">
-                    <a href="${contextPath}/signup.jsp" class="btn btn-outline-secondary" role="button">SignUp</a>
-                    <a href="${contextPath}/login.jsp" class="btn btn-secondary" role="button">Login</a>
+                    <a href="${contextPath}/views/user/signup.html" class="btn btn-outline-secondary" role="button">SignUp</a>
+                    <a href="${contextPath}/views/user/login.html" class="btn btn-secondary" role="button">Login</a>
                 </li>
             </ul>
         `;
@@ -69,7 +69,7 @@ const navbar = (isLogged)=> {
                         <img src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="user" width="30px">
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="${contextPath}/profile.jsp">Perfil</a></li>
+                        <li><a class="dropdown-item" href="${contextPath}/views/user/profile.html">Perfil</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="${contextPath}/logoutUser">Sair</a></li>
                     </ul>

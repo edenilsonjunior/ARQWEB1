@@ -40,7 +40,7 @@ public class CreateNewsArticle extends HttpServlet {
             return;
         }
 
-        String url = "/createNewsArticle.jsp";
+        String url = "/createNewsArticle.html";
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
@@ -61,7 +61,7 @@ public class CreateNewsArticle extends HttpServlet {
         var isValidImage2 = validateImage(image2);
 
         if (!isValidImage1 || !isValidImage2) {
-            url = "/createNewsArticle.jsp";
+            url = "/createNewsArticle.html";
             request.setAttribute("error", "A URL da imagem é invalida!");
             getServletContext().getRequestDispatcher(url).forward(request, response);
             return;
@@ -76,7 +76,7 @@ public class CreateNewsArticle extends HttpServlet {
             newsArticleDAO.add(newsArticle);
 
         } catch (Exception e) {
-            url = "/createNewsArticle.jsp";
+            url = "/createNewsArticle.html";
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

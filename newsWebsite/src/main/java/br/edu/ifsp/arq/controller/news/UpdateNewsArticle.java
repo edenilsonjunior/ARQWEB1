@@ -46,7 +46,7 @@ public class UpdateNewsArticle extends HttpServlet {
             getServletContext().getRequestDispatcher("/retrieveNewsArticle").forward(request, response);
         }
 
-        String url = "/updateNewsArticle.jsp";
+        String url = "/updateNewsArticle.html";
         request.setAttribute("newsArticle", newsArticleDAO.getById(id));
         request.setAttribute("categoryList", categoryDAO.getAll());
         request.setAttribute("isLoaded", true);
@@ -79,7 +79,7 @@ public class UpdateNewsArticle extends HttpServlet {
             newsArticleDAO.editNewsArticle(newsArticle);
 
         } catch (Exception e) {
-            url = "/updateNewsArticle.jsp";
+            url = "/updateNewsArticle.html";
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);

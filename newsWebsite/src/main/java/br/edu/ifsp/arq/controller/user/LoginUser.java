@@ -1,8 +1,8 @@
 package br.edu.ifsp.arq.controller.user;
 
 import java.io.IOException;
+import java.util.HashMap;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import br.edu.ifsp.arq.model.dao.UserDAO;
 import br.edu.ifsp.arq.model.entity.User;
+import com.google.gson.Gson;
 
 
 @WebServlet("/loginUser")
 public class LoginUser extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static final UserDAO USER_DAO = UserDAO.getInstance();
+
 
     public LoginUser() {
         super();
@@ -32,27 +35,29 @@ public class LoginUser extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        UserDAO udao = UserDAO.getInstance();
-        User user = udao.getUserByEmail(email);
+        User user = USER_DAO.getUserByEmail(email);
 
-        String url = "/login.jsp";
+        var responseContent = new HashMap<String, Object>();
 
         if (user != null) {
             if (user.checkPassword(password)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
                 session.setAttribute("isLogged", true);
-                url = "/index.html";
+                response.sendRedirect("index.html");
+                return;
+            }else {
+                responseContent.put("error", "Não foi possível realizar Login, verifique Email e Senha");
             }
-            else {
-                request.setAttribute("error", "Não foi possível realizar Login, verifique Email e Senha");
-            }
-        }
-        else{
-            request.setAttribute("error", "Não existe usuário com este email");
+        }else{
+            responseContent.put("error", "Não existe usuário com este email");
         }
 
+        Gson gson = new Gson();
+        String contentStr = gson.toJson(responseContent);
 
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().print(contentStr);
     }
 }

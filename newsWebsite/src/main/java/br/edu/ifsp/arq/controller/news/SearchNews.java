@@ -26,7 +26,7 @@ public class SearchNews extends HttpServlet {
         List<NewsArticle> newsList = NewsArticleDAO.getInstance().getNewsArticleSearched(keyword);
 
         request.setAttribute("listNews", newsList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/newsSearch.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/newsSearch.html");
         dispatcher.forward(request, response);
     }
 

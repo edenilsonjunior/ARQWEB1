@@ -29,10 +29,10 @@ public class UpdateUser extends HttpServlet {
 
 		if (user != null) {
 			request.setAttribute("user", user);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("profile.html");
 			dispatcher.forward(request, response);
 		} else {
-			response.sendRedirect("/login.jsp");
+			response.sendRedirect("/login.html");
 		}
 	}
 
@@ -53,14 +53,14 @@ public class UpdateUser extends HttpServlet {
 
 				session.setAttribute("user", user);
 
-				response.sendRedirect("profile.jsp");
+				response.sendRedirect("profile.html");
 			} else {
 				request.setAttribute("error", "As senhas não coincidem.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("profile.html");
 				dispatcher.forward(request, response);
 			}
 		} else {
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("login.html");
 		}
 	}
 

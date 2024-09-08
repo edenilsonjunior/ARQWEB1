@@ -22,7 +22,7 @@ public class UpdateCategory extends HttpServlet {
     }
 
     /**
-     * Recebe a requisicao atraves do botao em listCategory.jsp
+     * Recebe a requisicao atraves do botao em listCategory.html
      * e redireciona para a pagina de atualizacao de categoria
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,7 +38,7 @@ public class UpdateCategory extends HttpServlet {
         }
 
 
-        String url = "/updateCategory.jsp";
+        String url = "/updateCategory.html";
 
         Long id = null;
 

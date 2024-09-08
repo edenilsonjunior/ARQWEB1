@@ -25,7 +25,7 @@ public class UtilServlet extends HttpServlet {
         List<NewsArticleCategory> categoryList = categoryDAO.getAll();
         request.setAttribute("categoryList", categoryList);
         request.setAttribute("isLoaded", true);
-        getServletContext().getRequestDispatcher("/createNewsArticle.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/createNewsArticle.html").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -35,7 +35,7 @@ public class CreateCategory extends HttpServlet {
             return;
         }
 
-        String url = "/createCategory.jsp";
+        String url = "/createCategory.html";
         getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -66,7 +66,7 @@ public class CreateCategory extends HttpServlet {
             }
         } else {
             request.setAttribute("error", "Preencha o campo corretamente!");
-            url = "/createCategory.jsp";
+            url = "/createCategory.html";
         }
 
         getServletContext().getRequestDispatcher(url).forward(request, response);
