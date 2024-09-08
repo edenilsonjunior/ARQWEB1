@@ -46,7 +46,7 @@ public class CreateNewsArticle extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "/index.jsp";
+        String url = "/index.html";
         String title = request.getParameter("title");
         String author = request.getParameter("author");
         String publishDate = request.getParameter("publishDate");

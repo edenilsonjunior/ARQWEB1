@@ -42,7 +42,7 @@ public class IndexLoadData extends HttpServlet {
         request.setAttribute("newsList", newsList);
         request.setAttribute("isLoaded", true);
 
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/index.html").forward(request, response);
     }
 
 

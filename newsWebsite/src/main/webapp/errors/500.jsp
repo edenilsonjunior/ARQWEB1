@@ -17,7 +17,7 @@
         <img class="" src="assets/images/500.png" alt="error" width="400px">
         <h1 class="mt-5 text-center">Erro Interno do Servidor</h1>
         <h4 class="mt-2 text-center">Algo deu errado do nosso lado. Estamos trabalhando para resolver o problema.
-            Tente novamente mais tarde ou volte ao <a href="index.jsp" class="text-primary">início</a>.
+            Tente novamente mais tarde ou volte ao <a href="index.html" class="text-primary">início</a>.
         </h4>
         <p class="mt-2 text-center">Código do erro: 500</p>
     </div>

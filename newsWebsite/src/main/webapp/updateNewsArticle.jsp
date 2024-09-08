@@ -14,11 +14,11 @@
 </c:if>
 
 <c:if test="${empty newsArticle}">
-    <c:redirect url="index.jsp"/>
+    <c:redirect url="index.html"/>
 </c:if>
 
 <c:if test="${empty categoryList}">
-    <c:redirect url="index.jsp"/>
+    <c:redirect url="index.html"/>
 </c:if>
 
 

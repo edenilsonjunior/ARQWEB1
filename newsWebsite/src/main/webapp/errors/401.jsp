@@ -19,7 +19,7 @@
         <h4 class="mt-2 text-center">Você não tem permissão para acessar esta página.
             <c:choose>
                 <c:when test="${sessionScope.isLogged == true}">
-                    Tente voltar ao <a href="index.jsp" class="text-primary">início</a>.
+                    Tente voltar ao <a href="index.html" class="text-primary">início</a>.
                 </c:when>
                 <c:otherwise>
                     <a href="login.jsp" class="text-primary">Faça login</a> para continuar.

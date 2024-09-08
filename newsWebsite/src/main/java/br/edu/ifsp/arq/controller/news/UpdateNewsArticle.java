@@ -56,7 +56,7 @@ public class UpdateNewsArticle extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String url = "/index.jsp";
+        String url = "/index.html";
         Long id = Long.parseLong(request.getParameter("id"));
         String title = request.getParameter("title");
         String author = request.getParameter("author");

@@ -41,7 +41,7 @@ public class DeleteNewsArticle extends HttpServlet {
             return;
         }
 
-        String url = "/index.jsp";
+        String url = "/index.html";
 
         var newsDao = NewsArticleDAO.getInstance();
         var commentaryDao = CommentaryDAO.getInstance();

@@ -42,7 +42,7 @@ public class LoginUser extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
                 session.setAttribute("isLogged", true);
-                url = "/index.jsp";
+                url = "/index.html";
             }
             else {
                 request.setAttribute("error", "Não foi possível realizar Login, verifique Email e Senha");

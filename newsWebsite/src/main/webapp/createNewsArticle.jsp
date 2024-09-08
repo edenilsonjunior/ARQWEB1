@@ -17,7 +17,7 @@
 
 
 <c:if test="${empty categoryList}">
-    <c:redirect url="index.jsp"/>
+    <c:redirect url="index.html"/>
 </c:if>
 
 
