@@ -32,7 +32,6 @@ const navbar = (isLogged)=> {
                                 <li class="nav-item">
                                     <a class="nav-link" href="${contextPath}/views/about.html">Sobre</a>
                                 </li>
-                            </ul>
     `;
 
     if (isLogged) {
@@ -42,6 +41,8 @@ const navbar = (isLogged)=> {
             </li>
         `;
     }
+
+    content += '</ul>';
 
     content += `
                   <form class="d-flex" role="search" action="${contextPath}/search" method="get">
