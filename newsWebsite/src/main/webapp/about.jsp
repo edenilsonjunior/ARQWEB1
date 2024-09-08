@@ -5,14 +5,7 @@
 <%@ include file="includes/navbar/header-default.jsp" %>
 
 <!-- Navbar -->
-<c:choose>
-    <c:when test="${sessionScope.isLogged == true}">
-        <c:import url="includes/navbar/navbar-logged-in.jsp"/>
-    </c:when>
-    <c:otherwise>
-        <c:import url="includes/navbar/navbar-logged-out.jsp"/>
-    </c:otherwise>
-</c:choose>
+<div id="nav-bar"></div>
 
 
 <main class="container">
@@ -55,6 +48,7 @@
 
 </main>
 
+<script src="${pageContext.request.contextPath}/components/navbar.js" type="module"></script>
 <%@ include file="includes/footer/footer.jsp" %>
 <%@ include file="includes/footer/footer-default.jsp" %>
 
