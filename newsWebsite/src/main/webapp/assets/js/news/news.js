@@ -23,7 +23,7 @@ const newsById = async (newsId) => {
         const response = await fetch(`${contextPath}/news?id=${newsId}`);
         return await response.json();
     } catch (error) {
-    console.error(error);
+        console.error(error);
     }
 }
 
@@ -128,3 +128,9 @@ const loadComments = async (comments, news) => {
 
     commentsContainer.innerHTML = content;
 }
+
+
+
+
+
+

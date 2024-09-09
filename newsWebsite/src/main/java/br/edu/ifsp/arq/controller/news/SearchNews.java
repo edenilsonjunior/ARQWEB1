@@ -2,9 +2,12 @@ package br.edu.ifsp.arq.controller.news;
 
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
+import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,9 +28,15 @@ public class SearchNews extends HttpServlet {
         String keyword = request.getParameter("keyword");
         List<NewsArticle> newsList = NewsArticleDAO.getInstance().getNewsArticleSearched(keyword);
 
-        request.setAttribute("listNews", newsList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/newsSearch.html");
-        dispatcher.forward(request, response);
+        Map<String, Object> content = new HashMap<>();
+
+        content.put("newsList",newsList);
+        Gson gson = new Gson();
+        String contentStr = gson.toJson(content);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().print(contentStr);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
