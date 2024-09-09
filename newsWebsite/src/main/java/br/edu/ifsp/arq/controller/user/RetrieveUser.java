@@ -1,6 +1,10 @@
 package br.edu.ifsp.arq.controller.user;
 
+import br.edu.ifsp.arq.controller.utils.Utils;
+import br.edu.ifsp.arq.model.entity.User;
+
 import java.io.IOException;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/logout")
-public class LogoutUser extends HttpServlet {
+@WebServlet("/retrieve-user")
+public class RetrieveUser extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public LogoutUser() {
+    public RetrieveUser() {
         super();
     }
 
@@ -21,14 +25,16 @@ public class LogoutUser extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        session.invalidate();
+        User user = (User) session.getAttribute("user");
 
-        response.sendRedirect("index.html");
+        var content = new HashMap<String, Object>();
+        content.put("user",user);
+
+        Utils.writeJsonResponse(response, content);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         doGet(request, response);
     }
 }

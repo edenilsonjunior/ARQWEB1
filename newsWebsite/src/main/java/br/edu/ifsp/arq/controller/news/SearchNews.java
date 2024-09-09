@@ -1,11 +1,12 @@
 package br.edu.ifsp.arq.controller.news;
 
+import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,17 +21,19 @@ public class SearchNews extends HttpServlet {
         super();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         String keyword = request.getParameter("keyword");
         List<NewsArticle> newsList = NewsArticleDAO.getInstance().getNewsArticleSearched(keyword);
 
-        request.setAttribute("listNews", newsList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/newsSearch.jsp");
-        dispatcher.forward(request, response);
+        var content = new HashMap<String, Object>();
+        content.put("newsList", newsList);
+        Utils.writeJsonResponse(response, content);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         doGet(request, response);
     }
 }
