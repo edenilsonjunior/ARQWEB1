@@ -18,6 +18,7 @@ export const checkLoginStatus = async () => {
     }
 }
 
+
 export const checkUserPermission = async () => {
 
     let response = await checkLoginStatus();
@@ -54,3 +55,14 @@ export const submitPost = async (event, servletUrl, formId) => {
         console.error('Error:', error);
     }
 }
+
+export const submitGet = async (servletUrl) => {
+    try {
+        const response = await fetch(contextPath + servletUrl);
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
