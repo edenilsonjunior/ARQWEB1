@@ -105,7 +105,7 @@ const recentPosts = (newsList) => {
         <div class="p-4">
             <h4 class="fst-italic">Noticias recentes</h4>
             <ul class="list-unstyled">
-                ${newsList.forEach(news => {
+                ${newsList.map(news => {
                     return `
                         <li>
                             <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
