@@ -7,7 +7,6 @@ import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class NewsArticleDAO extends AbstractDAO<NewsArticle> {
     private static NewsArticleDAO instance;

@@ -56,8 +56,8 @@ const navbar = (isLogged)=> {
         content += `
             <ul class="navbar-nav me-right mb-2 mb-lg-0 mx-1 mt-2">
                 <li class="nav-item dropdown">
-                    <a href="${contextPath}/views/user/signup.html" class="btn btn-outline-secondary" role="button">SignUp</a>
-                    <a href="${contextPath}/views/user/login.html" class="btn btn-secondary" role="button">Login</a>
+                    <a href="${contextPath}/signup" class="btn btn-outline-secondary" role="button">SignUp</a>
+                    <a href="${contextPath}/login" class="btn btn-secondary" role="button">Login</a>
                 </li>
             </ul>
         `;

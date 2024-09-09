@@ -1,6 +1,5 @@
 package br.edu.ifsp.arq.model.dao;
 
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 

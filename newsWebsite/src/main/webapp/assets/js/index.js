@@ -37,7 +37,7 @@ const latestNews = (newsList) => {
     if (newsList.length === 0) {
         latestNewsContainer.innerHTML = `
             <h3 class="my-5 mx-5 px-3 py-3 border rounded"> 
-                Hmm, parece que não temos nada por enquanto, comece se cadastrando <a href="${contextPath}/views/user/signup.html">aqui</a> e criando uma notícia!
+                Hmm, parece que não temos nada por enquanto, comece se cadastrando <a href="${contextPath}/signup">aqui</a> e criando uma notícia!
             </h3>
         `;
         return;
