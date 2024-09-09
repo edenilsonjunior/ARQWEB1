@@ -5,10 +5,14 @@ import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.Commentary;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 import br.edu.ifsp.arq.model.entity.User;
+import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class News
  */
 @WebServlet("/news")
+@MultipartConfig
 public class RetrieveNewsArticlePage extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -36,18 +41,21 @@ public class RetrieveNewsArticlePage extends HttpServlet {
     try {
         Long id = Long.parseLong(request.getParameter("id"));
         NewsArticle news = NewsArticleDAO.getInstance().getById(id);
-        request.setAttribute("news", news);
-        System.out.println(news);
-
         List<Commentary> commentary = CommentaryDAO.getInstance().getCommentsById(id);
-        request.setAttribute("listCommentary", commentary);
-        System.out.println(commentary);
-
         List<String> images = news.getImages();
-        request.setAttribute("images", images);
-        System.out.println(images);
 
-        getServletContext().getRequestDispatcher("/news.html").forward(request, response);
+        Map<String, Object> content = new HashMap<>();
+
+        content.put("news", news);
+        content.put("listCommentary", commentary);
+        content.put("images", images);
+
+        Gson gson = new Gson();
+        String contentStr = gson.toJson(content);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().print(contentStr);
     } catch (NumberFormatException e) {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid news ID");
     } catch (Exception e) {
@@ -69,7 +77,7 @@ public class RetrieveNewsArticlePage extends HttpServlet {
                     Commentary commentary = new Commentary(newsId, user, comment);
                     commentary.setId(newsId);
                     CommentaryDAO.getInstance().add(commentary);
-                    response.sendRedirect("news?id=" + newsId);
+                    response.sendRedirect("views/news/news.html?id=" + newsId);
                 }
             }
         }

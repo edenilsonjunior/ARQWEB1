@@ -72,11 +72,11 @@ public class CreateCategory extends HttpServlet {
             }
         } else {
             request.setAttribute("error", "Preencha o campo corretamente!");
-            url = "/createCategory.html";
+//            url = "/createCategory.html";
         }
 
-        request.setAttribute("categoryList", categoryList);
-        request.setAttribute("newsList", newsList);
+//        request.setAttribute("categoryList", categoryList);
+//        request.setAttribute("newsList", newsList);
         request.setAttribute("isLoaded", true);
 
         getServletContext().getRequestDispatcher("/index.html").forward(request, response);
