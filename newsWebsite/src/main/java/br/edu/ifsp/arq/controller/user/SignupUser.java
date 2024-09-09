@@ -35,7 +35,6 @@ public class SignupUser extends HttpServlet {
     }
 
     @Override
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String username = request.getParameter("username");
@@ -48,7 +47,7 @@ public class SignupUser extends HttpServlet {
             if (!username.isEmpty() && !password.isEmpty()) {
                 User user = new User(username, email, password);
                 userDAO.addUser(user);
-                response.sendRedirect("/views/user/login.html");
+                response.sendRedirect("views/user/login.html");
                 return;
             } else {
                 responseContent.put("error", "Você deve preencher todos os campos");

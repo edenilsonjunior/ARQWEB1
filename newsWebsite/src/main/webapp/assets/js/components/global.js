@@ -8,3 +8,49 @@ export const loadData = async () => {
         console.error(error);
     }
 };
+
+export const checkLoginStatus = async () => {
+    try {
+        const response = await fetch(`${contextPath}/check-login-status`);
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const checkUserPermission = async () => {
+
+    let response = await checkLoginStatus();
+
+    if(!response.isLogged){
+        window.location.href = `${contextPath}/views/errors/401.html`;
+    }
+}
+
+export const submitPost = async (event, servletUrl, formId) => {
+
+    event.preventDefault();
+    const formData = new FormData(document.getElementById(formId));
+
+    try {
+        const response = await fetch(contextPath + servletUrl, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.redirected) {
+            window.location.href = response.url;
+            return;
+        }
+
+        const data = await response.json();
+
+        if (data.error) {
+            const errorMessageElement = document.getElementById('error-message');
+            errorMessageElement.textContent = data.error;
+            errorMessageElement.style.display = 'block';
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}

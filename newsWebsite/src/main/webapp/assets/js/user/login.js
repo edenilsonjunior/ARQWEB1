@@ -1,34 +1,9 @@
-import {contextPath} from '../components/global.js';
+import {submitPost} from '../components/global.js';
 
+const formId = 'loginForm';
+const servletUrl = '/loginUser';
+const container = document.getElementById(formId);
 
-const submitLogin = async (event) => {
-
-    event.preventDefault();
-
-    const form = document.getElementById('login');
-    const formData = new FormData(form);
-
-    try {
-        const response = await fetch(contextPath + '/loginUser', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.redirected) {
-            window.location.href = response.url;
-            return;
-        }
-
-        const data = await response.json();
-
-        if (data.error) {
-            const errorMessageElement = document.getElementById('error-message');
-            errorMessageElement.textContent = data.error;
-            errorMessageElement.style.display = 'block';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-document.getElementById('loginForm').addEventListener('submit', submitLogin);
+container.addEventListener('submit', async (event)=>{
+    await submitPost(event, servletUrl, formId);
+});
