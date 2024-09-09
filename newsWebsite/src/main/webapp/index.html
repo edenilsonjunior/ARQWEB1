@@ -16,7 +16,14 @@
     <main class="container">
 
         <!-- Boas-vindas ao site -->
-        <div id="welcome"></div>
+        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary bk-news">
+            <div class="col-lg-6 px-0 bg-dark text-light rounded px-2 py-2">
+                <h1 class="display-4 fst-italic">Bem-vindo ao IFNews!</h1>
+                <p class="lead my-3">Este sistema foi desenvolvido para oferecer uma plataforma completa e intuitiva para a gestão e visualização de notícias.</p>
+                <p class="lead mb-0"><a href="${contextPath}/about.html" class="fw-bold" id="welcome-link">Continue lendo...</a></p>
+            </div>
+        </div> 
+
 
         <!--Últimas notícias-->
         <div id="latest-news"></div>
@@ -24,7 +31,16 @@
         <div class="row">
             <!--Galeria de imagens-->
             <div class="col-md-8">
-                <div id="image-gallery"></div>
+
+                <div id="image-gallery">
+
+                    <h3 class="pb-4 mb-4 fst-italic border-bottom">Galeria de imagens</h3>
+                    <article class="blog-post">
+                        <div id="image-gallery-content">
+                            <!--Imagens vindas do js-->
+                        </div>
+                    </article>
+                </div>
             </div>
 
             <!--Barra lateral-->
