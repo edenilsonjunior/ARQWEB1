@@ -33,22 +33,28 @@ public class RetrieveNewsArticlePage extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
+    try {
+        Long id = Long.parseLong(request.getParameter("id"));
+        NewsArticle news = NewsArticleDAO.getInstance().getById(id);
+        request.setAttribute("news", news);
+        System.out.println(news);
 
-            Long id = Long.parseLong(request.getParameter("id"));
-            NewsArticle news = NewsArticleDAO.getInstance().getById(id);
+        List<Commentary> commentary = CommentaryDAO.getInstance().getCommentsById(id);
+        request.setAttribute("listCommentary", commentary);
+        System.out.println(commentary);
 
-            request.setAttribute("news", news);
+        List<String> images = news.getImages();
+        request.setAttribute("images", images);
+        System.out.println(images);
 
-
-            List<Commentary> commentary = CommentaryDAO.getInstance().getCommentsById(id);
-            request.setAttribute("listCommentary", commentary);
-
-            getServletContext().getRequestDispatcher("/news.html").forward(request, response);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid news ID");
-        }
+        getServletContext().getRequestDispatcher("/news.html").forward(request, response);
+    } catch (NumberFormatException e) {
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid news ID");
+    } catch (Exception e) {
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + e.getMessage());
     }
+}
+
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
