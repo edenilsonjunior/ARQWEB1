@@ -38,7 +38,7 @@ const loadSearchNews = async (newsList) =>{
                 <h1 class="display-4 fst-italic">${news.title}</h1>
                 <p class="lead my-3">${news.summary}</p>
                 <p class="lead my-3">Autor: ${news.author}</p>
-                <p class="lead mb-0"><a href="views/news/news?id=${news.id}" class="fw-bold">Continue lendo...</a></p>
+                <p class="lead mb-0"><a href="${contextPath}/views/news/news.html?id=${news.id}" class="fw-bold">Continue lendo...</a></p>
             </div>
         `;
     }

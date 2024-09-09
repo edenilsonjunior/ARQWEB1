@@ -77,7 +77,7 @@ const displayNews = (data, isLogged) => {
                                 <h5 class="card-title">${newsArticle.title}</h5>
                                 <p class="card-text">Autor: ${newsArticle.author}</p>
                                 <p class="card-text">Publicado em: ${newsArticle.publishDate}</p>
-                                <a href="${contextPath}/news?id=${newsArticle.id}" class="btn btn-primary">Leia mais</a>
+                                <a href="${contextPath}/views/news/news.html?id=${newsArticle.id}" class="btn btn-primary">Leia mais</a>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,6 @@ const displayNews = (data, isLogged) => {
 
 const deleteCategory = async (event) => {
 
-    debugger;
     const category = event.target.getAttribute('data-category');
     const response = await fetch(`${contextPath}/delete-category?category=${category}`, {
         method: 'GET'

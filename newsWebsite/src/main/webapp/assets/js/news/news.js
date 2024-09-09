@@ -11,11 +11,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     const listCommentary = data.listCommentary;
     const images = data.images;
 
+    debugger;
+    const loginStatusResponse = await checkLoginStatus();
+    const isLogged = loginStatusResponse.isLogged;
 
     loadCarousel(images);
-    await loadEditNews(news);
+    loadEditNews(news, isLogged);
     loadNews(news);
-    await loadComments(listCommentary, news);
+    loadComments(listCommentary, news, isLogged);
 });
 
 const newsById = async (newsId) => {
@@ -45,19 +48,16 @@ const loadCarousel = (images) =>{
     carouselInner.innerHTML = content;
 }
 
+const loadEditNews = (news, isLogged) => {
 
-const loadEditNews = async (news) => {
-
-    const isLogged = await checkLoginStatus();
     const editNewsContainer = document.getElementById('edit-news');
 
     if(isLogged) {
-
         editNewsContainer.innerHTML = `
             <div class="d-flex justify-content-between align-items-center mt-2 mb-2">
                 <div>
                     <a href="${contextPath}/deleteNewsArticle?id=${news.id}" class="btn btn-danger">Excluir </a>
-                    <a href="${contextPath}/updateNewsArticle?id=${news.id}" class="btn btn-warning">Editar</a>
+                    <a href="${contextPath}/views/news/updateNewsArticle.html?id=${news.id}" class="btn btn-warning">Editar</a>
                 </div>
             </div>
         `;
@@ -86,9 +86,8 @@ const loadNews = (news) => {
     `;
 }
 
-const loadComments = async (comments, news) => {
+const loadComments = (comments, news, isLogged) => {
 
-    const isLogged = await checkLoginStatus();
     const commentsContainer = document.getElementById('comments');
 
     let content = `<h3 class="display-6 link-body-emphasis mb-2 mt-4">Comentários</h3>`;
@@ -128,9 +127,3 @@ const loadComments = async (comments, news) => {
 
     commentsContainer.innerHTML = content;
 }
-
-
-
-
-
-

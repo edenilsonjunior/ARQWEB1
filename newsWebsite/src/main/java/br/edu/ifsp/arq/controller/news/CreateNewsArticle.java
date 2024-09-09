@@ -10,14 +10,18 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/createNewsArticle")
+
+@WebServlet("/create-news")
+@MultipartConfig
 public class CreateNewsArticle extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static NewsArticleDAO newsArticleDAO;
@@ -42,7 +46,7 @@ public class CreateNewsArticle extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "/index.html";
+
         String title = request.getParameter("title");
         String author = request.getParameter("author");
         String publishDate = request.getParameter("publishDate");
@@ -53,29 +57,29 @@ public class CreateNewsArticle extends HttpServlet {
         String image1 = request.getParameter("image1");
         String image2 = request.getParameter("image2");
 
+        var content = new HashMap<String, Object>();
+
         var isValidImage1 = validateImage(image1);
         var isValidImage2 = validateImage(image2);
 
         if (!isValidImage1 || !isValidImage2) {
-            url = "/createNewsArticle.html";
-            request.setAttribute("error", "A URL da imagem é invalida!");
-            getServletContext().getRequestDispatcher(url).forward(request, response);
+
+            content.put("error", "A URL da imagem é invalida!");
+            Utils.writeJsonResponse(response, content);
             return;
         }
 
         try {
-            NewsArticleCategory newsArticleCategory = categoryDAO.getById(category);
-            List<String> imageList = new ArrayList<>();
-            imageList.add(image1);
-            imageList.add(image2);
-            NewsArticle newsArticle = new NewsArticle(title, author, publishDate, source, summary, text, newsArticleCategory, imageList);
-            newsArticleDAO.add(newsArticle);
+            var newsArticleCategory = categoryDAO.getById(category);
+            var imageList = new ArrayList<>(List.of(image1, image2));
+            var newsArticle = new NewsArticle(title, author, publishDate, source, summary, text, newsArticleCategory, imageList);
 
+            newsArticleDAO.add(newsArticle);
         } catch (Exception e) {
-            url = "/createNewsArticle.html";
+            e.printStackTrace();
         }
 
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+        response.sendRedirect("index.html");
     }
 
     private boolean validateImage(String imageUrl) {

@@ -1,94 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IFNews</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/IFNews.ico">
-  </head>
-  <body>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/images/IFNews.ico">
+</head>
+<body>
+
     <div id="nav-bar"></div>
-<c:if test="${sessionScope.isLogged == false}">
-    <c:redirect url="../../errors/401.html"/>
-</c:if>
 
+    <main class="container">
 
-<c:if test="${empty isLoaded}">
-    <c:redirect url="updateNewsArticle"/>
-</c:if>
+        <h1 class="my-5 text-center">Atualizar Notícia</h1>
 
-<c:if test="${empty newsArticle}">
-    <c:redirect url="../../index.html"/>
-</c:if>
-
-<c:if test="${empty categoryList}">
-    <c:redirect url="../../index.html"/>
-</c:if>
-
-
-<main class="container">
-
-    <h1 class="my-5 text-center">Atualizar Notícia</h1>
-
-    <div class="container form-container">
-        <form action="updateNewsArticle" method="post">
-            <input type="hidden" name="id" value="${newsArticle.id}">
-            <div class="mb-3">
-                <label for="title" class="form-label">Título</label>
-                <input type="text" class="form-control" id="title" name="title" value="${newsArticle.title}" required>
-            </div>
-            <div class="mb-3">
-                <label for="author" class="form-label">Autor</label>
-                <input type="text" class="form-control" id="author" name="author" value="${newsArticle.author}"
-                       required>
-            </div>
-            <div class="mb-3">
-                <label for="publishDate" class="form-label">Data de Publicação</label>
-                <input type="date" class="form-control" id="publishDate" name="publishDate"
-                       value="${newsArticle.publishDate}" required>
-            </div>
-            <div class="mb-3">
-                <label for="source" class="form-label">Fonte</label>
-                <input type="text" class="form-control" id="source" name="source" value="${newsArticle.source}"
-                       required>
-            </div>
-            <div class="mb-3">
-                <label for="summary" class="form-label">Resumo</label>
-                <textarea class="form-control" id="summary" name="summary" rows="3"
-                          required>${newsArticle.summary}</textarea>
-            </div>
-            <div class="mb-3">
-                <label for="text" class="form-label">Texto</label>
-                <textarea class="form-control" id="text" name="text" rows="5" required>${newsArticle.text}</textarea>
-            </div>
-            <div class="mb-3">
-                <label for="category" class="form-label">Categoria</label>
-                <select class="form-select" id="category" name="category" required>
-                    <c:forEach var="category" items="${categoryList}">
-                        <option value="${category.id}">${category.category}</option>
-                    </c:forEach>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="image1" class="form-label">Imagem 1</label>
-                <input type="text" class="form-control" id="image1" name="image1" value="${newsArticle.images[0]}">
-            </div>
-            <div class="mb-3">
-                <label for="image2" class="form-label">Imagem 2</label>
-                <input type="text" class="form-control" id="image2" name="image2" value="${newsArticle.images[1]}">
-            </div>
-            <button type="submit" class="btn btn-warning px-4">Editar</button>
-        </form>
-    </div>
-
-</main>
+        <div id="update-news"></div>
+    </main>
 
 <div id="footer"></div>
-<script src="js/components/navbar.js" type="module"></script>
-<script src="js/components/footer.js" type="module"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="../../assets/js/components/navbar.js" type="module"></script>
+<script src="../../assets/js/components/footer.js" type="module"></script>
+<script src="../../assets/js/news/updateNews.js" type="module"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

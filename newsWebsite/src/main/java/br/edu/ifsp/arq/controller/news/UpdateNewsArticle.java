@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/updateNewsArticle")
+@WebServlet("/update-news")
 @MultipartConfig
 public class UpdateNewsArticle extends HttpServlet {
     private static final long serialVersionUID = 1L;

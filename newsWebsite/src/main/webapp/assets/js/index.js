@@ -55,7 +55,7 @@ const latestNews = (newsList) => {
                             <h3 class="mb-0">${news.title}</h3>
                             <div class="mb-1 text-body-secondary">${news.publishDate}</div>
                             <p class="card-text mb-auto">${news.summary}</p>
-                            <a class="icon-link gap-1 icon-link-hover stretched-link" href="${contextPath}/news?id=${news.id}">Continue lendo...</a>
+                            <a class="icon-link gap-1 icon-link-hover stretched-link" href="${contextPath}/views/news/news.html?id=${news.id}">Continue lendo...</a>
                         </div>
                         <div class="col-auto d-none d-lg-block bk-news">
                             <img src="${news.images[0]}" alt="${news.title}" class="bd-placeholder-img" width="200" height="250" style="object-fit: cover;">
@@ -120,7 +120,7 @@ const recentPosts = (newsList) => {
             content += `
                 <li>
                     <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                       href="${contextPath}/news?id=${news.id}">
+                       href="${contextPath}/views/news/news.html?id=${news.id}">
                         <img src="${news.images[0]}" alt="${news.title}" class="bd-placeholder-img"
                              width="100" height="96"
                              style="object-fit: cover;"/>

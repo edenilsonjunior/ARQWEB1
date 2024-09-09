@@ -36,7 +36,6 @@ const loadCategoryField = async () => {
 
     document.getElementById('updateCategoryForm').addEventListener('submit', async (event) => {
 
-        debugger;
         await submitPost(event, servletUrl, formId);
     });
 
