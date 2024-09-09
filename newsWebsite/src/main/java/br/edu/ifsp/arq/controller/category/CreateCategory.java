@@ -47,7 +47,7 @@ public class CreateCategory extends HttpServlet {
 
         String category = request.getParameter("category");
         var content = new HashMap<String, Object>();
-        String url = "index.html";
+        String url = "views/category/listCategory.html";
 
         if (category != null && !category.isEmpty()) {
 

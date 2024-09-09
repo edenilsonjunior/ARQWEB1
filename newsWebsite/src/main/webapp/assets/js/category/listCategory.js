@@ -28,7 +28,7 @@ const loadNewsByCategory = async (isLogged) => {
 
     try {
         let data = await submitGet('/news-by-category');
-        displayNews(data, isLogged);
+        displayNewsByCategory(data, isLogged);
 
     } catch (e) {
         console.error(e);
@@ -36,13 +36,12 @@ const loadNewsByCategory = async (isLogged) => {
 
 }
 
-const displayNews = (data, isLogged) => {
+const displayNewsByCategory = (data, isLogged) => {
 
     newsByCategoryContainer.innerHTML = '';
-
     for (const [category, articles] of Object.entries(data.newsByCategory)) {
 
-        let categoryHTML = `
+        newsByCategoryContainer.innerHTML += `
             <div class="d-flex justify-content-between align-items-center border border-secondary rounded px-2 py-2">
                 <h2 class="me-4">${category}</h2>
                 ${isLogged ? `
@@ -51,20 +50,28 @@ const displayNews = (data, isLogged) => {
                     <a href="${contextPath}/views/category/updateCategory.html?category=${category}" class="btn btn-warning">Editar</a>
                 </div>` : ''}
             </div>
+            ${displayNews(articles)}
         `;
+    }
 
-        newsByCategoryContainer.innerHTML += categoryHTML;
+    if (isLogged) {
+        const divs = document.getElementsByClassName('delete-category');
 
-        if (articles.length === 0) {
-            newsByCategoryContainer.innerHTML += `
-                <li class="text-danger my-3">Nenhuma notícia cadastrada</li>
-            `;
-        } else {
+        Array.from(divs).forEach(div => {
+            div.addEventListener('click', deleteCategory);
+        });
+    }
+};
+
+const displayNews = (articles) => {
+    return (articles.length === 0) ?
+        `<li class="text-danger my-3">Nenhuma notícia cadastrada</li>`
+        :
+        (() => {
             let counter = 0;
             let rowHTML = '';
 
-            articles.forEach((newsArticle, index) => {
-
+            articles.forEach((newsArticle) => {
                 if (counter % 4 === 0) {
                     if (counter > 0) rowHTML += `</div>`;
                     rowHTML += `<div class="row my-3">`;
@@ -87,36 +94,19 @@ const displayNews = (data, isLogged) => {
             });
 
             rowHTML += `</div>`;
-            newsByCategoryContainer.innerHTML += rowHTML;
-        }
-    }
+            return rowHTML;
+        })();
+}
 
-    if (isLogged) {
-        const divs = document.getElementsByClassName('delete-category');
-
-        Array.from(divs).forEach(div => {
-            div.addEventListener('click', deleteCategory);
-        });
-    }
-
-};
 
 const deleteCategory = async (event) => {
 
     const category = event.target.getAttribute('data-category');
-    const response = await fetch(`${contextPath}/delete-category?category=${category}`, {
-        method: 'GET'
-    });
-
+    const response = await fetch(`${contextPath}/delete-category?category=${category}`);
     const content = await response.json();
 
-    let message = '';
-
-    if (content.error != null)
-        message = `<div class="alert alert-danger" role="alert">${content.error}</div>`;
-    else
-        message = `<div class="alert alert-success" role="alert">Categoria excluida com sucesso! Atualize a pagina para ver as mudanças</div>`;
-
-    messageContainer.innerHTML = message;
+    messageContainer.innerHTML = (content.error != null) ?
+        `<div class="alert alert-danger" role="alert">${content.error}</div>` :
+        `<div class="alert alert-success" role="alert">Categoria excluida com sucesso! Atualize a pagina para ver as mudanças</div>`;
 }
 
