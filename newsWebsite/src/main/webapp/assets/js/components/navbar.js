@@ -26,7 +26,7 @@ const navbar = (isLogged)=> {
                                     <a class="nav-link active" aria-current="page" href="${contextPath}/index.html">Página Inicial</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${contextPath}/retrieveCategory">Categorias</a>
+                                    <a class="nav-link" href="${contextPath}/retrieve-category">Categorias</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${contextPath}/about.html">Sobre</a>
@@ -71,7 +71,7 @@ const navbar = (isLogged)=> {
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="${contextPath}/views/user/profile.html">Perfil</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="${contextPath}/logoutUser">Sair</a></li>
+                        <li><a class="dropdown-item" href="${contextPath}/logout">Sair</a></li>
                     </ul>
                 </li>
             </ul>        

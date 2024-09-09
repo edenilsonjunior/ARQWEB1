@@ -1,7 +1,7 @@
 import {submitPost} from '../components/global.js';
 
 const formId = 'loginForm';
-const servletUrl = '/loginUser';
+const servletUrl = '/login';
 const container = document.getElementById(formId);
 
 container.addEventListener('submit', async (event)=>{

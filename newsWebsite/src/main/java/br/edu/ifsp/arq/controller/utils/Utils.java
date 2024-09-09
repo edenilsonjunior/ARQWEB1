@@ -15,7 +15,7 @@ public class Utils {
     }
 
     public static Boolean isUserLogged(HttpServletRequest request) {
-        return (Boolean) request.getSession().getAttribute("user");
+        return (Boolean) request.getSession().getAttribute("isLogged");
     }
 
 

@@ -39,9 +39,8 @@ public class UpdateUser extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        var session = request.getSession();
-        User user = (User) session.getAttribute("user");
 
+        User user = Utils.getUser(request);
         if (user == null) {
             response.sendRedirect("views/user/login.html");
             return;
