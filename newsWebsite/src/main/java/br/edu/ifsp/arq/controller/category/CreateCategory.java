@@ -1,12 +1,12 @@
 package br.edu.ifsp.arq.controller.category;
 
+
+import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
-import br.edu.ifsp.arq.model.entity.User;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,49 +18,36 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/create-category")
 @MultipartConfig
 public class CreateCategory extends HttpServlet {
-
     private static final long serialVersionUID = 1L;
-
 
     public CreateCategory() {
         super();
     }
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Boolean isLogged = (Boolean) request.getSession().getAttribute("isLogged");
-        User user = (User) request.getSession().getAttribute("user");
-
-        if(isLogged == null || !isLogged || user == null) {
-
+        var isLogged = Utils.isUserLogged(request);
+        if (isLogged == null || !isLogged) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esta página.");
             return;
         }
 
-        String url = "views/category/createCategory.html";
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+        response.sendRedirect("views/category/createCategory.html");
     }
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //String url = "/retrieveCategory";
-
-        Boolean isLogged = (Boolean) request.getSession().getAttribute("isLogged");
-        User user = (User) request.getSession().getAttribute("user");
-
-        if(isLogged == null || !isLogged || user == null) {
-
+        var isLogged = Utils.isUserLogged(request);
+        if (isLogged == null || !isLogged) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Você não está autorizado a acessar esta página.");
             return;
         }
 
         String category = request.getParameter("category");
-
-        Map<String, Object> content = new HashMap<>();
+        var content = new HashMap<String, Object>();
+        String url = "index.html";
 
         if (category != null && !category.isEmpty()) {
 
@@ -69,16 +56,14 @@ public class CreateCategory extends HttpServlet {
 
             if (!result) {
                 content.put("error", "Erro ao adicionar a categoria!");
+                url = "views/category/createCategory.html";
             }
         } else {
-            request.setAttribute("error", "Preencha o campo corretamente!");
-            url = "/createCategory.html";
+            content.put("error", "Preencha o campo corretamente!");
+            url = "views/category/createCategory.html";
         }
 
-        request.setAttribute("categoryList", categoryList);
-        request.setAttribute("newsList", newsList);
-        request.setAttribute("isLoaded", true);
-
-        getServletContext().getRequestDispatcher("/index.html").forward(request, response);
+        Utils.writeJsonResponse(response, content);
+        response.sendRedirect(url);
     }
 }

@@ -1,12 +1,9 @@
 package br.edu.ifsp.arq.controller.category;
 
+import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
-import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
-import br.edu.ifsp.arq.model.entity.NewsArticle;
-import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.LinkedHashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/retrieveCategory")
+@WebServlet("/retrieve-category")
 public class RetrieveCategory extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
+    private final CategoryDAO CATEGORY_DAO = CategoryDAO.getInstance();
 
     public RetrieveCategory() { super(); }
 
@@ -25,34 +24,23 @@ public class RetrieveCategory extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String url = "/listCategory.html";
+        var categories = CATEGORY_DAO.getAll();
 
-        var categoryDAO = CategoryDAO.getInstance();
-        var newsArticleDAO = NewsArticleDAO.getInstance();
+        var map = new LinkedHashMap<String, Object>();
 
-        var map = new LinkedHashMap<NewsArticleCategory, List<NewsArticle>>();
+        if(!categories.isEmpty())
+            map.put("categories", categories);
+        else
+            map.put("error", "Não existem categorias cadastradas.");
 
-        var categories = categoryDAO.getAll();
 
-        if (categories.isEmpty()) {
-            request.setAttribute("error", "Não existem categorias cadastradas.");
-        } else {
-            for (var category : categories) {
-                var articles = newsArticleDAO.getNewsArticleCategories(category.getId());
-                map.put(category, articles);
-            }
-
-            request.setAttribute("map", map);
-        }
-
-        getServletContext().getRequestDispatcher(url).forward(request, response);
+        Utils.writeJsonResponse(response, map);
     }
 
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         doGet(request, response);
     }
 }

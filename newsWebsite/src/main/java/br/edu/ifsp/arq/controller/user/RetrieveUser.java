@@ -1,6 +1,6 @@
-package br.edu.ifsp.arq.controller.category;
+package br.edu.ifsp.arq.controller.user;
 
-import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
+import br.edu.ifsp.arq.model.entity.User;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -9,26 +9,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/search-by-category")
-public class SearchNewsByCategory extends HttpServlet {
+@WebServlet("/retrieve-user")
+public class RetrieveUser extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final NewsArticleDAO NEWS_DAO = NewsArticleDAO.getInstance();
 
-    public SearchNewsByCategory() {
+    public RetrieveUser() {
         super();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Long id = Long.parseLong(request.getParameter("id"));
-        var newsList = NEWS_DAO.getNewsArticleCategories(id);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
-        request.setAttribute("listNews", newsList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/newsSearch.html");
-        dispatcher.forward(request, response);
+        if (user != null) {
+            request.setAttribute("user", user);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("profile.html");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect("/login.html");
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

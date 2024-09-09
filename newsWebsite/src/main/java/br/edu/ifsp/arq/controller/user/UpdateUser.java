@@ -1,67 +1,62 @@
 package br.edu.ifsp.arq.controller.user;
 
+import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.dao.UserDAO;
 import br.edu.ifsp.arq.model.entity.User;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 
-@WebServlet("/updateUser")
+
+@WebServlet("/update-user")
+@MultipartConfig
 public class UpdateUser extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static UserDAO userDAO;
+    private static final long serialVersionUID = 1L;
+    private static final UserDAO USER_DAO = UserDAO.getInstance();
 
-	public UpdateUser() {
-		super();
-		userDAO = UserDAO.getInstance();
-	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public UpdateUser() {
+        super();
+    }
 
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		if (user != null) {
-			request.setAttribute("user", user);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("profile.html");
-			dispatcher.forward(request, response);
-		} else {
-			response.sendRedirect("/login.html");
-		}
-	}
+        String url = "views/user/profile.html";
+        response.sendRedirect(url);
+    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String confirmPassword = request.getParameter("confirmPassword");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
-		if (user != null) {
-			if (password != null && password.equals(confirmPassword)) {
-				user.setEmail(email);
-				user.setHashPassword(password);
+        var session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
-				userDAO.editUser(user);
+        if (user == null) {
+            response.sendRedirect("views/user/login.html");
+            return;
+        }
 
-				session.setAttribute("user", user);
+        if (password != null && password.equals(confirmPassword)) {
+            user.setEmail(email);
+            user.setHashPassword(password);
+            USER_DAO.editUser(user);
+        } else {
+            var content = new HashMap<String, Object>();
+            content.put("error", "As senhas não coincidem.");
+            Utils.writeJsonResponse(response, content);
+        }
 
-				response.sendRedirect("profile.html");
-			} else {
-				request.setAttribute("error", "As senhas não coincidem.");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("profile.html");
-				dispatcher.forward(request, response);
-			}
-		} else {
-			response.sendRedirect("login.html");
-		}
-	}
-
+        response.sendRedirect("views/user/profile.html");
+    }
 }

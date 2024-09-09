@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.dao.UserDAO;
 import br.edu.ifsp.arq.model.entity.User;
-import com.google.gson.Gson;
 
-@WebServlet("/signupUser")
+
+@WebServlet("/signup")
 @MultipartConfig
 public class SignupUser extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -30,18 +31,22 @@ public class SignupUser extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().append("Served at: ").append(request.getContextPath());
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String url = "views/user/signup.html";
+        response.sendRedirect(url);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        var responseContent = new HashMap<String, Object>();
+        var content = new HashMap<String, Object>();
 
         if (userDAO.validateEmail(email)) {
             if (!username.isEmpty() && !password.isEmpty()) {
@@ -50,17 +55,12 @@ public class SignupUser extends HttpServlet {
                 response.sendRedirect("views/user/login.html");
                 return;
             } else {
-                responseContent.put("error", "Você deve preencher todos os campos");
+                content.put("error", "Você deve preencher todos os campos");
             }
         } else {
-            responseContent.put("error", "Email já existente");
+            content.put("error", "Email já existente");
         }
 
-        Gson gson = new Gson();
-        String contentStr = gson.toJson(responseContent);
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().print(contentStr);
+        Utils.writeJsonResponse(response, content);
     }
 }
