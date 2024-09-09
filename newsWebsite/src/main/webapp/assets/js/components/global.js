@@ -24,8 +24,9 @@ export const checkUserPermission = async () => {
     let response = await checkLoginStatus();
 
     if(!response.isLogged){
-        window.location.href = `${contextPath}/views/errors/401.html`;
+        window.location.href = `${contextPath}/401.html`;
     }
+
 }
 
 export const submitPost = async (event, servletUrl, formId) => {
