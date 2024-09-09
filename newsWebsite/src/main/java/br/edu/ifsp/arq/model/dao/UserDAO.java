@@ -13,11 +13,9 @@ import br.edu.ifsp.arq.model.entity.User;
 
 public class UserDAO {
 
-	private static UserDAO instance;
+    private static UserDAO instance;
     private static final String BASE_PATH = "/data";
-    private static final String fileCSV =  BASE_PATH + "/usersData.csv";
-    
-    private final Long counter = 0L;
+    private static final String fileCSV = BASE_PATH + "/usersData.csv";
 
     private UserDAO() {
 
@@ -30,24 +28,34 @@ public class UserDAO {
         Utils.createDirectoryIfNotExists(BASE_PATH, fileCSV);
         return instance;
     }
-    
+
     public void addUser(User user) {
-    	
-    	var f = new File(fileCSV);
-    	
-    	try {    
-			FileWriter fw = new FileWriter(f, true);
-			PrintWriter pw = new PrintWriter(fw);
-			var id = counter + 1;
-			user.setId(id);
-			pw.println(user);
-			pw.close();
-			fw.close();
-		}  catch (IOException e) {
+
+        var f = new File(fileCSV);
+        var list = getUsers();
+
+        try {
+            FileWriter fw = new FileWriter(f, true);
+            PrintWriter pw = new PrintWriter(fw);
+
+            if (user.getId() == null) {
+                Long id = 1L;
+                for (var u : list) {
+                    if (u.getId() >= id) {
+                        id = u.getId() + 1;
+                    }
+                }
+                user.setId(id);
+            }
+
+            pw.println(user);
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
 
@@ -65,50 +73,50 @@ public class UserDAO {
                     users.add(user);
                 }
             }
-            reader.close();            
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return users;
     }
-    
+
     private void deleteFile() {
-    	try {
-			FileWriter fw = new FileWriter(fileCSV, false);
-			PrintWriter pw = new PrintWriter(fw);			
-			pw.print("");
-			pw.close();
-			fw.close();
-		}  catch (IOException e) {
+        try {
+            FileWriter fw = new FileWriter(fileCSV, false);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.print("");
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     public User getUserByEmail(String email) {
         List<User> users = getUsers();
         for (User u : users) {
             if (u.getEmail().equals(email)) {
                 return u;
             }
-        }        
+        }
         return null;
     }
-    
+
     public User getUserById(Long id) {
         List<User> users = getUsers();
         for (User u : users) {
             if (u.getId() == id) {
                 return u;
             }
-        }        
+        }
         return null;
     }
-    
+
     public void editUser(User userEdited) {
         List<User> users = getUsers();
         deleteFile();
 
-        for (User u: users) {
+        for (User u : users) {
             if (u.getId() == userEdited.getId()) {
                 u.setUsername(userEdited.getUsername());
                 u.setEmail(userEdited.getEmail());
@@ -126,7 +134,7 @@ public class UserDAO {
             if (u.getId() != userToDelete.getId()) {
                 addUser(u);
             }
-        }    
+        }
     }
 
     public boolean validateEmail(String email) {
