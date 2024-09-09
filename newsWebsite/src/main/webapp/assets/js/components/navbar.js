@@ -44,7 +44,7 @@ const navbar = (isLogged)=> {
     content += '</ul>';
 
     content += `
-                  <form class="d-flex" role="search" action="${contextPath}/search" method="get">
+                <form class="d-flex" role="search" action="${contextPath}/views/news/newsSearch.html" method="get">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
                 <button class="btn btn-light" type="submit">
                   <i class="fas fa-search"></i>
