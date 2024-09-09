@@ -39,18 +39,18 @@ public class LoginUser extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user = USER_DAO.getUserByEmail(email);
-        var responseContent = new HashMap<String, Object>();
+        var content = new HashMap<String, Object>();
 
 
         if (user == null) {
-            responseContent.put("error", "Não existe usuário com este email");
-            Utils.writeJsonResponse(response, responseContent);
+            content.put("error", "Não existe usuário com este email");
+            Utils.writeJsonResponse(response, content);
             return;
         }
 
         if (!user.checkPassword(password)) {
-            responseContent.put("error", "Não foi possível realizar Login, verifique Email e Senha");
-            Utils.writeJsonResponse(response, responseContent);
+            content.put("error", "Não foi possível realizar Login, verifique Email e Senha");
+            Utils.writeJsonResponse(response, content);
             return;
         }
 

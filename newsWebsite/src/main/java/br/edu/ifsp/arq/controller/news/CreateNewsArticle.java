@@ -4,7 +4,6 @@ import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
-import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

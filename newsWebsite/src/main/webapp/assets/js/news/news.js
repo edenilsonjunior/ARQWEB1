@@ -1,4 +1,4 @@
-import {loadData, contextPath, checkLoginStatus, submitPost} from '../components/global.js';
+import {contextPath, checkLoginStatus} from '../components/global.js';
 
 document.addEventListener("DOMContentLoaded", async function () {
 
@@ -7,18 +7,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     const id = params.get('id');
     const data = await newsById(id);
 
-    const news = data.news;
-    const listCommentary = data.listCommentary;
-    const images = data.images;
-
-    debugger;
     const loginStatusResponse = await checkLoginStatus();
     const isLogged = loginStatusResponse.isLogged;
 
-    loadCarousel(images);
-    loadEditNews(news, isLogged);
-    loadNews(news);
-    loadComments(listCommentary, news, isLogged);
+    loadCarousel(data.news.images);
+    loadEditNews(data.news, isLogged);
+    loadNews(data.news);
+    loadComments(data.listCommentary, data.news, isLogged);
 });
 
 const newsById = async (newsId) => {
