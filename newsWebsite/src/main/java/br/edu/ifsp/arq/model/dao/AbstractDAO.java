@@ -6,8 +6,7 @@ import java.util.List;
 
 public abstract class AbstractDAO<T> {
 
-    protected static final String BASE_PATH = "/data";
-
+    protected static final String BASE_PATH = System.getProperty("user.home") + "/data";
 
     public AbstractDAO() {
     }
