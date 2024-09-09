@@ -18,8 +18,8 @@ import java.util.List;
 @MultipartConfig
 public class UpdateNewsArticle extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static NewsArticleDAO newsArticleDAO = NewsArticleDAO.getInstance();
-    private static CategoryDAO categoryDAO = CategoryDAO.getInstance();
+    private static final NewsArticleDAO newsArticleDAO = NewsArticleDAO.getInstance();
+    private static final CategoryDAO categoryDAO = CategoryDAO.getInstance();
 
     public UpdateNewsArticle() {
         super();

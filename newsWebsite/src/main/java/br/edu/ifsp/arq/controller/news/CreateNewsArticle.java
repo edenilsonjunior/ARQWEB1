@@ -4,10 +4,10 @@ import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.dao.CategoryDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
-import br.edu.ifsp.arq.model.entity.NewsArticleCategory;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +86,8 @@ public class CreateNewsArticle extends HttpServlet {
         boolean isValid = false;
 
         try {
-            URL url = new URL(imageUrl);
+            URI uri = new URI(imageUrl);
+            URL url = uri.toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("HEAD");
             connection.connect();

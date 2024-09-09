@@ -1,16 +1,15 @@
 package br.edu.ifsp.arq.controller.news;
 
+import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.dao.CommentaryDAO;
 import br.edu.ifsp.arq.model.dao.NewsArticleDAO;
 import br.edu.ifsp.arq.model.entity.Commentary;
 import br.edu.ifsp.arq.model.entity.NewsArticle;
 import br.edu.ifsp.arq.model.entity.User;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -44,18 +43,12 @@ public class RetrieveNewsArticlePage extends HttpServlet {
         List<Commentary> commentary = CommentaryDAO.getInstance().getCommentsById(id);
         List<String> images = news.getImages();
 
-        Map<String, Object> content = new HashMap<>();
-
+        var content = new HashMap<String, Object>();
         content.put("news", news);
         content.put("listCommentary", commentary);
         content.put("images", images);
 
-        Gson gson = new Gson();
-        String contentStr = gson.toJson(content);
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().print(contentStr);
+        Utils.writeJsonResponse(response, content);
     } catch (NumberFormatException e) {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid news ID");
     } catch (Exception e) {

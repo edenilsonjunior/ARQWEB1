@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IFNews</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" type="image/x-icon" href="assets/images/IFNews.ico">
 </head>
+
 <body>
     <div id="nav-bar"></div>
 
     <main class="container">
 
-        <!-- Boas-vindas ao site -->
-        <div id="welcome"></div>
+        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary bk-news">
+            <div class="col-lg-6 px-0 bg-dark text-light rounded px-2 py-2">
+                <h1 class="display-4 fst-italic">Bem-vindo ao IFNews!</h1>
+                <p class="lead my-3">Este sistema foi desenvolvido para oferecer uma plataforma completa e intuitiva
+                    para a gestão e visualização de notícias.</p>
+                <p class="lead mb-0"><a href="" class="fw-bold" id="welcome-link">Continue lendo...</a></p>
+            </div>
+        </div>
+
 
         <!--Últimas notícias-->
         <div id="latest-news"></div>
@@ -24,7 +33,16 @@
         <div class="row">
             <!--Galeria de imagens-->
             <div class="col-md-8">
-                <div id="image-gallery"></div>
+
+                <div id="image-gallery">
+
+                    <h3 class="pb-4 mb-4 fst-italic border-bottom">Galeria de imagens</h3>
+                    <article class="blog-post">
+                        <div id="image-gallery-content">
+                            <!--Imagens vindas do js-->
+                        </div>
+                    </article>
+                </div>
             </div>
 
             <!--Barra lateral-->
@@ -33,7 +51,8 @@
 
                     <div class="p-4 mb-3 bg-body-tertiary rounded">
                         <h4 class="fst-italic">Sobre</h4>
-                        <p class="mb-0">Abaixo voce encontrará, se disponível, as noticias recentes, além das categorias presentes no site.</p>
+                        <p class="mb-0">Abaixo voce encontrará, se disponível, as noticias recentes, além das categorias
+                            presentes no site.</p>
                     </div>
 
                     <!--Posts recentes (max de 3)-->
@@ -62,7 +81,8 @@
     <script src="assets/js/components/footer.js" type="module"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
