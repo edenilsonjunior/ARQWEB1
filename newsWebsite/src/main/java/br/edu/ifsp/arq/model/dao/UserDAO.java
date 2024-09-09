@@ -14,7 +14,7 @@ import br.edu.ifsp.arq.model.entity.User;
 public class UserDAO {
 
     private static UserDAO instance;
-    private static final String BASE_PATH = "/data";
+    private static final String BASE_PATH = System.getProperty("user.home") + "/data";
     private static final String fileCSV = BASE_PATH + "/usersData.csv";
 
     private UserDAO() {
