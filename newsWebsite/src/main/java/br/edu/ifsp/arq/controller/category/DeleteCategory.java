@@ -33,25 +33,23 @@ public class DeleteCategory extends HttpServlet {
             return;
         }
 
-        String url = "/retrieveCategory";
-        Long id = Long.parseLong(request.getParameter("id"));
-        var newsList = NEWS_DAO.getNewsArticleCategories(id);
+        String categoryName = request.getParameter("category");
+
+        var category = CATEGORY_DAO.getByCategory(categoryName);
+        var newsList = NEWS_DAO.getNewsArticleCategories(category.getId());
+
         var content = new HashMap<String, Object>();
-
-
         if (!newsList.isEmpty()) {
             content.put("error", "Não é possível deletar a categoria pois existem notícias associadas a ela");
         } else {
-            var result = CATEGORY_DAO.deleteById(id);
+            var result = CATEGORY_DAO.deleteById(category.getId());
 
             if (!result)
                 content.put("error", "Erro ao deletar a categoria");
         }
 
         Utils.writeJsonResponse(response, content);
-        response.sendRedirect(url);
     }
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

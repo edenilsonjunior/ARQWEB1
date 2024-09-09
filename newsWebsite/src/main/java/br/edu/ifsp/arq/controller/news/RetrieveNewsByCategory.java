@@ -41,7 +41,7 @@ public class RetrieveNewsByCategory extends HttpServlet {
                 var articles = NEWS_DAO.getNewsArticleCategories(c.getId());
                 map.put(c.getCategory(), articles);
             });
-            content.put("map", map);
+            content.put("newsByCategory", map);
         }
 
         Utils.writeJsonResponse(response, content);

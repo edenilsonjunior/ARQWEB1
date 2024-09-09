@@ -1,9 +1,10 @@
 package br.edu.ifsp.arq.controller.user;
 
+import br.edu.ifsp.arq.controller.utils.Utils;
 import br.edu.ifsp.arq.model.entity.User;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,13 +27,10 @@ public class RetrieveUser extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        if (user != null) {
-            request.setAttribute("user", user);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("profile.html");
-            dispatcher.forward(request, response);
-        } else {
-            response.sendRedirect("/login.html");
-        }
+        var content = new HashMap<String, Object>();
+        content.put("user",user);
+
+        Utils.writeJsonResponse(response, content);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
